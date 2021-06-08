@@ -1,0 +1,15 @@
+FEATURES :
+[]- delete list btn
+[x]- delete list item btn
+[]- multiple task files
+[]- home page with draggable boxes
+[]- editing option when hovering on the task title and task item
+[]- task item gave diffrent colors
+[x]- draggable list
+[]- touch event sorting
+
+BUGS :
+[]- fix multiple tabs open when clicking edit icon
+[]- li tab positioning
+[]- fix nested li when editing task
+[]- multiple add tasks e.prevent

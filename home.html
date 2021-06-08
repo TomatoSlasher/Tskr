@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Drag n Drop</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/d5013eb6e8.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+
+    <header class="header">
+      <h2 contenteditable="true" class="document-name">Add document name</h2>
+      <div class="right-header">
+        <p class="list-clear">
+          <span class="clear-container"
+            ><img src="./svg/trash-alt-solid.svg" alt="Trash" />
+        </p>
+
+
+      </div>
+    </header>
+    <div class="app">
+
+      <div class="lists">
+        <div class="list-container"></div>
+        <div class="newlist-container">
+      <div class = 'new-list'>
+        <p><img src="./svg/plus-solid.svg" alt="">Add list</p>
+      </div>
+</div>
+      </div>
+
+    </div>
+
+    <script src="./controller.js" type="module"></script>
+  </body>
+</html>
