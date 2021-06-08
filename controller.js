@@ -344,7 +344,7 @@ const editTask = (element) => {
     taskTextarea.value.length,
     taskTextarea.value.length
   );
-  console.log("ads");
+
   taskTextarea.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       taskTextarea.remove();
@@ -391,7 +391,7 @@ lists.addEventListener("mousedown", (e) => {
     editTask(tabLi);
   }
 });
-console.log("xx");
+
 // adding new task items
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".add-task")) {
