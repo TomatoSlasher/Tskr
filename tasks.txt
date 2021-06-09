@@ -7,11 +7,12 @@ FEATURES :
 []- task item gave diffrent colors
 [x]- draggable list
 []- touch event sorting
+[]-list tab
 
 BUGS :
 []- fix multiple tabs open when clicking edit icon
 []- li tab positioning
 [x]- fix nested li when editing task
 [x]- multiple add tasks e.prevent
-[]- make pushing edited tasks a function
 []- li scroll bar stops blur
+[]- sorting item doesn't work sometimes (pointer-events keep showing)

@@ -1,5 +1,6 @@
 //draggable library
 import { Sortable, Plugins } from "@shopify/draggable";
+console.log(Plugins);
 // svg iconss
 import edit from "url:./svg/edit-regular.svg";
 import pen from "url:./svg/pen-solid.svg";
@@ -42,13 +43,14 @@ if (items) {
 
 let sortable = new Sortable(document.querySelectorAll(".li-container"), {
   draggable: ".full-item",
-  mirror: {
-    constrainDimensions: true,
-  },
-  sortAnimation: {
+  // mirror: {
+  //   constrainDimensions: true,
+  // },
+  SwapAnimation: {
     duration: 200,
     easingFunction: "ease-in-out",
   },
+
   plugins: [Plugins["SwapAnimation"]],
 });
 
@@ -64,13 +66,14 @@ const updateSort = function () {
   sortable.destroy();
   sortable = new Sortable(document.querySelectorAll(".li-container"), {
     draggable: ".full-item",
-    mirror: {
-      constrainDimensions: true,
-    },
-    sortAnimation: {
+    // mirror: {
+    //   constrainDimensions: true,
+    // },
+    SwapAnimation: {
       duration: 200,
       easingFunction: "ease-in-out",
     },
+
     plugins: [Plugins["SwapAnimation"]],
   });
 
@@ -89,13 +92,14 @@ const updateSort = function () {
 
 let sortableList = new Sortable(document.querySelectorAll(".list-container"), {
   draggable: ".full-list",
-  mirror: {
-    constrainDimensions: true,
-  },
-  sortAnimation: {
+  // mirror: {
+  //   constrainDimensions: true,
+  // },
+  SwapAnimation: {
     duration: 200,
     easingFunction: "ease-in-out",
   },
+
   plugins: [Plugins["SwapAnimation"]],
 });
 
@@ -112,13 +116,14 @@ const updateSortList = () => {
   sortableList.destroy();
   sortableList = new Sortable(document.querySelectorAll(".list-container"), {
     draggable: ".full-list",
-    mirror: {
-      constrainDimensions: true,
-    },
-    sortAnimation: {
+    // mirror: {
+    //   constrainDimensions: true,
+    // },
+    SwapAnimation: {
       duration: 200,
       easingFunction: "ease-in-out",
     },
+
     plugins: [Plugins["SwapAnimation"]],
   });
 
@@ -253,7 +258,7 @@ lists.addEventListener("mousedown", (e) => {
     sortable.destroy();
   }
 });
-
+console.log("zx");
 sortable.on("drag:stopped", (e) => {
   updateStorage();
   updateSortList();
@@ -263,6 +268,22 @@ sortable.on("drag:stopped", (e) => {
 let timer = null;
 window.addEventListener(
   "scroll",
+  function (e) {
+    if (e.target.matches(".li-container")) {
+      if (timer !== null) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(function () {
+        updateSortList();
+      }, 50);
+    }
+  },
+  true
+);
+
+// update sortList
+window.addEventListener(
+  "mousedown",
   function (e) {
     if (e.target.matches(".li-container")) {
       if (timer !== null) {
@@ -333,7 +354,6 @@ const editTask = (element) => {
   element.style.display = "none";
   // get the text of the list item
   const liInnerText = element.childNodes[1].firstChild.innerText;
-  console.log(liInnerText);
 
   element.insertAdjacentHTML("afterend", gitTextareaMarkup(liInnerText));
   element.remove();
@@ -353,7 +373,7 @@ const editTask = (element) => {
     }
     taskTextarea.addEventListener("blur", (e) => {
       e.stopImmediatePropagation();
-      console.log("haa");
+
       const textValue = taskTextarea.value;
 
       // only adding new task item if the textarea box containes text
@@ -418,6 +438,7 @@ lists.addEventListener("click", (e) => {
         if (textValue) {
           firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
           updateStorage();
+          updateSort();
           updateSortList();
         } else {
           updateSortList();
@@ -433,6 +454,7 @@ lists.addEventListener("click", (e) => {
       if (textValue) {
         firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
         updateStorage();
+        updateSort();
         updateSortList();
       } else {
         updateSortList();
