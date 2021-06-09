@@ -307,38 +307,36 @@ window.addEventListener("click", (e) => {
 // logic for removing task items when clicking remove item button in the tabs menu
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".tab-trash")) {
-    const liSibling = e.path[1].previousElementSibling;
-    const tabContainer = e.path[1];
-    updateSortList();
+    const liSibling = e.path[2];
     liSibling.remove();
-    tabContainer.remove();
+    updateSort();
+    updateSortList();
     updateStorage();
   }
   if (e.target.matches(".edit-trash-li")) {
-    const liSibling = e.path[2].previousElementSibling;
-    const tabContainer = e.path[2];
-    updateSortList();
+    const liSibling = e.path[3];
     liSibling.remove();
-    tabContainer.remove();
+    updateSort();
+    updateSortList();
     updateStorage();
   }
   if (e.target.matches(".tab-text-trash")) {
-    const liSibling = e.path[2].previousElementSibling;
-    const tabContainer = e.path[2];
-    updateSortList();
+    const liSibling = e.path[3];
     liSibling.remove();
-    tabContainer.remove();
+    updateSort();
+    updateSortList();
     updateStorage();
   }
 });
 
 const editTask = (element) => {
   element.style.display = "none";
+  // get the text of the list item
+  const liInnerText = element.childNodes[1].firstChild.innerText;
+  console.log(liInnerText);
 
-  element.insertAdjacentHTML(
-    "afterend",
-    gitTextareaMarkup(element.childNodes[0].innerText)
-  );
+  element.insertAdjacentHTML("afterend", gitTextareaMarkup(liInnerText));
+  element.remove();
 
   const taskTextarea = document.querySelector(".task-textarea");
 
@@ -352,26 +350,26 @@ const editTask = (element) => {
   taskTextarea.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       taskTextarea.remove();
+    }
+    taskTextarea.addEventListener("blur", (e) => {
+      e.stopImmediatePropagation();
+      console.log("haa");
       const textValue = taskTextarea.value;
+
       // only adding new task item if the textarea box containes text
       if (textValue) {
-        element.insertAdjacentHTML("afterend", gitLiMarkup(textValue));
+        taskTextarea.insertAdjacentHTML("afterend", gitLiMarkup(textValue));
+        taskTextarea.remove();
         updateStorage();
       }
+      if (!textValue) {
+        taskTextarea.remove();
+        updateStorage();
+      }
+
       updateSort();
       updateSortList();
-    }
-  });
-  taskTextarea.addEventListener("blur", (e) => {
-    taskTextarea.remove();
-    const textValue = taskTextarea.value;
-    // only adding new task item if the textarea box containes text
-    if (textValue) {
-      element.insertAdjacentHTML("afterend", gitLiMarkup(textValue));
-      updateStorage();
-    }
-    updateSort();
-    updateSortList();
+    });
   });
 };
 
@@ -379,20 +377,21 @@ const editTask = (element) => {
 lists.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.matches(".tab-pen")) {
-    const tabLi = e.path[1].previousElementSibling;
-    editTask(tabLi);
+    const tab = e.path[2];
+
+    editTask(tab);
   }
 
   if (e.target.matches(".edit-pen-li")) {
-    const tabLi = e.path[2].previousElementSibling;
+    const tab = e.path[3];
 
-    editTask(tabLi);
+    editTask(tab);
   }
 
   if (e.target.matches(".tab-text-pen")) {
-    const tabLi = e.path[2].previousElementSibling;
+    const tab = e.path[3];
 
-    editTask(tabLi);
+    editTask(tab);
   }
 });
 

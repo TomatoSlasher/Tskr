@@ -261,9 +261,10 @@ html {
 }
 
 .task-textarea {
-  width: 20rem;
-  height: 2.6rem;
-  padding: 0.7rem;
+  width: 19.5rem;
+  height: 2.65rem;
+  padding: 0.5rem;
+  padding-top: 0.7rem;
   resize: none;
   font-size: 15px;
 }
@@ -273,7 +274,23 @@ textarea {
   background-color: white;
   border: 2px solid #b01eea;
   overflow: hidden;
+  overflow-y: auto;
   outline: none;
+}
+.task-textarea::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #cccccc;
+}
+
+.task-textarea::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+.task-textarea::-webkit-scrollbar-thumb {
+  /* border-radius: 10px; */
+
+  background-color: rgb(150, 150, 150);
 }
 .title-input-box {
   min-width: 22rem;
