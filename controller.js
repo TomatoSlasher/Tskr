@@ -244,6 +244,9 @@ lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".list-item")) {
     sortableList.destroy();
   }
+  if (e.target.matches(".li-container")) {
+    sortableList.destroy();
+  }
 
   if (e.target.matches(".task-textarea")) {
     sortableList.destroy();
@@ -287,7 +290,7 @@ lists.addEventListener("mousedown", (e) => {
 // removing open task item tab on reload
 
 let tabTrash = "";
-window.addEventListener("mousedown", (e) => {
+window.addEventListener("click", (e) => {
   tabTrash = document.querySelector(".display-block");
 
   if (tabTrash) {
@@ -302,7 +305,7 @@ window.addEventListener("mousedown", (e) => {
 });
 
 // logic for removing task items when clicking remove item button in the tabs menu
-lists.addEventListener("mousedown", (e) => {
+lists.addEventListener("click", (e) => {
   if (e.target.matches(".tab-trash")) {
     const liSibling = e.path[1].previousElementSibling;
     const tabContainer = e.path[1];
@@ -328,6 +331,7 @@ lists.addEventListener("mousedown", (e) => {
     updateStorage();
   }
 });
+
 const editTask = (element) => {
   element.style.display = "none";
 
@@ -372,7 +376,7 @@ const editTask = (element) => {
 };
 
 // logic for editing task items when clicking edit task button in the tabs menu
-lists.addEventListener("mousedown", (e) => {
+lists.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.matches(".tab-pen")) {
     const tabLi = e.path[1].previousElementSibling;
@@ -394,6 +398,7 @@ lists.addEventListener("mousedown", (e) => {
 
 // adding new task items
 lists.addEventListener("click", (e) => {
+  e.preventDefault();
   if (e.target.matches(".add-task")) {
     const getEl = e.path[1].firstChild.nextSibling;
     const firstChild = getEl.childNodes[3];
