@@ -4,6 +4,7 @@
   --task--bg: #ffffff;
   --list--bg: #e2e5eb;
   --main--txt: #27334d;
+  --sec--txt: #818285;
   --btn: #b01eea;
   --tab: #f3f3f3;
 }
@@ -233,9 +234,25 @@ p {
   border-radius: 10px;
 }
 .list-item-text {
-  /* width: 14rem; */
+  margin: 0.6rem;
+  /* overflow-wrap: break-word; */
+}
+.set-deadline {
+  margin: 0.6rem;
+}
+.deadline {
+  color: var(--sec--txt) !important;
+  padding: 0.6rem;
+  font-size: 18px;
+  position: relative;
+  margin-left: 1.6rem;
+}
 
-  overflow-wrap: break-word;
+.clock {
+  height: 1.1rem;
+  position: absolute;
+  left: -0.9rem;
+  bottom: 0.78rem;
 }
 .edit-icon {
   height: 2rem;

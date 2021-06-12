@@ -151,6 +151,7 @@ const gitTextareaMarkup = (value) => {
 `;
   return textareaValue;
 };
+
 const gitLiMarkup = (value) => {
   const newListItemMarkup = `
           <div class='full-item'>
