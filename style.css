@@ -3,9 +3,11 @@
   --bg: #fffeff;
   --task--bg: #ffffff;
   --list--bg: #e2e5eb;
+  --btn--bg: #eceef2;
   --main--txt: #27334d;
   --sec--txt: #818285;
   --btn: #b01eea;
+  --btn--dark: #761d96;
   --tab: #f3f3f3;
 }
 
@@ -221,6 +223,9 @@ p {
   color: var(--btn) !important;
   font-weight: bold;
 }
+.add-tag:hover {
+  background-color: var(--btn--bg);
+}
 .edit-icon-li {
   height: 2rem;
   padding: 0.3rem;
@@ -235,12 +240,13 @@ p {
 }
 .list-item-text {
   margin: 0.6rem;
-  /* overflow-wrap: break-word; */
 }
-.set-deadline {
-  margin: 0.6rem;
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
 }
-.deadline {
+.created {
   color: var(--sec--txt) !important;
   padding: 0.6rem;
   font-size: 18px;
