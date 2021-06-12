@@ -1,5 +1,11 @@
 :root {
   --main--lin: linear-gradient(to bottom right, #1a17c4, #b01eea);
+  --bg: #fffeff;
+  --task--bg: #ffffff;
+  --list--bg: #e2e5eb;
+  --main--txt: #27334d;
+  --btn: #b01eea;
+  --tab: #f3f3f3;
 }
 
 * {
@@ -11,10 +17,13 @@
 body,
 html {
   font-family: "Roboto", Helvetica, sans-serif;
-  background-image: var(--main--lin);
-  background-repeat: no-repeat;
+  background-color: var(--bg);
 
   height: 100vh;
+}
+h2,
+p {
+  color: var(--main--txt) !important;
 }
 
 .app {
@@ -87,18 +96,31 @@ html {
   margin: 0rem 2rem;
 
   background-color: #ebecf0;
-  min-width: 22rem;
+  width: 22rem;
   padding: 1.3rem;
   border-radius: 10px;
   height: 4rem !important;
+  position: relative;
 }
 .new-list p {
-  font-size: 20px;
+  margin-left: 7.5rem;
+}
+.new-list-txt {
+  font-size: 27px;
+  color: var(--btn);
+  position: absolute;
+  bottom: 0.9rem;
 }
 .new-list img {
-  /* height: 4rem; */
-  margin-right: 0.5rem;
-  height: 1rem;
+  margin-right: 1rem;
+  height: 2.1rem;
+  position: absolute;
+  bottom: 0.9rem;
+  left: 6.2rem;
+  padding: 0.3rem;
+  background-color: var(--btn);
+  border-radius: 100%;
+  margin-right: 1rem;
 }
 
 .btn-text2 {
@@ -114,17 +136,17 @@ html {
   height: 100%;
 }
 .full-list {
-  background-color: #ebecf0;
+  background-color: var(--list--bg);
 
   height: min-content;
-  margin: 0rem 2rem;
+  margin: 0rem 1rem;
   border-radius: 10px;
   max-height: 27rem;
 }
 .lists .list {
-  min-width: 20rem;
+  width: 22vw;
 
-  margin: 0rem 1rem;
+  /* margin: 0rem 1rem; */
 
   height: initial;
 
@@ -132,14 +154,15 @@ html {
 }
 
 .list-title {
-  margin: 1rem 0rem;
+  margin: 1rem 1rem;
   display: flex;
   justify-content: space-between;
 }
 .li-container {
-  max-height: 19.1rem;
+  max-height: 50vh;
   min-height: 3rem;
   overflow-y: auto;
+  margin: 0rem 0.8rem;
   /* width: 20rem; */
   overflow-x: visible;
 }
@@ -161,15 +184,13 @@ html {
 }
 
 .lists .list .list-item {
-  display: flex;
-  justify-content: space-between;
-  background-color: #cccccc;
-  max-width: 20rem;
-  margin: 1rem 0rem;
+  background-color: var(--task--bg);
+  max-width: 17rem;
+  margin: 0.3rem 0rem;
   margin-right: 0.5rem;
   cursor: pointer;
   /* overflow: hidden; */
-  border-radius: 10px;
+  border-radius: 5px;
   list-style-type: none;
 }
 
@@ -185,10 +206,34 @@ html {
   /* padding: 0.5rem 0rem; */
   border-radius: 10px;
 }
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem;
+}
+.add-tag {
+  font-size: 17px;
+
+  border: 2px dashed var(--btn);
+  padding: 0.4rem;
+  border-radius: 20px;
+  color: var(--btn) !important;
+  font-weight: bold;
+}
+.edit-icon-li {
+  height: 2rem;
+  padding: 0.3rem;
+
+  /* display: none; */
+  cursor: pointer;
+}
+
+.edit-icon-li:hover {
+  background-color: rgb(179, 179, 179);
+  border-radius: 10px;
+}
 .list-item-text {
-  padding: 0.75rem;
-  padding-right: 0;
-  width: 16.8rem;
+  /* width: 14rem; */
 
   overflow-wrap: break-word;
 }
@@ -198,23 +243,12 @@ html {
   padding: 0.3rem;
   cursor: pointer;
 }
-.edit-icon-li {
-  height: 2.65rem;
-  padding: 0rem 0.5rem;
-  padding: 0.7rem;
-  margin: 0;
 
-  /* display: none; */
-  cursor: pointer;
-  background-color: rgb(175, 175, 175);
-
-  border-radius: 10px;
-}
 .li-edit-tab {
   position: absolute;
-  margin-left: 20rem;
+  margin-left: 17rem;
   /* bottom: -2.5rem; */
-  background-color: white;
+  background-color: var(--tab);
   border-radius: 10px;
   display: none;
   bottom: 10%;
@@ -248,25 +282,19 @@ html {
   height: 2rem;
 }
 
-.list-item:hover .edit-icon-li {
-  display: block;
-}
-
 .edit-icon:hover {
   background-color: rgb(175, 175, 175);
   border-radius: 10px;
 }
-.edit-icon-li:hover {
-  background-color: rgb(140, 140, 140);
-}
 
 .task-textarea {
-  width: 19.5rem;
+  width: 16.8rem;
   height: 2.65rem;
   padding: 0.5rem;
   padding-top: 0.7rem;
   resize: none;
   font-size: 15px;
+  border-radius: 5px;
 }
 textarea {
   font-family: "Roboto", Helvetica, sans-serif;

@@ -8,6 +8,14 @@ FEATURES :
 [x]- draggable list
 []- touch event sorting
 []-list tab
+[]- mark as completed button
+[]- task deadline
+[]- mark tasks and be able to sort them
+[]- task tags
+[]- progress bar shows what features are completed
+[]- light and dark mode
+[]- task counter in lists
+[]- creation date in task card
 
 BUGS :
 []- fix multiple tabs open when clicking edit icon
