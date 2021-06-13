@@ -1,11 +1,13 @@
 //draggable library
 import { Sortable, Plugins } from "@shopify/draggable";
-console.log(Plugins);
+
 // svg iconss
 import edit from "url:./svg/edit-regular.svg";
 import pen from "url:./svg/pen-solid.svg";
 import plus from "url:./svg/plus-solid.svg";
 import trash from "url:./svg/trash-alt-solid.svg";
+import dots from "url:./svg/ellipsis-h-solid.svg";
+import clock from "url:./svg/clock-regular.svg";
 
 //imported html element
 
@@ -39,62 +41,13 @@ if (items) {
   lists.insertAdjacentHTML("afterbegin", items.listUL);
 }
 
-// allowing task items to be sortable
-
-let sortable = new Sortable(document.querySelectorAll(".li-container"), {
-  draggable: ".full-item",
-  // mirror: {
-  //   constrainDimensions: true,
-  // },
-  SwapAnimation: {
-    duration: 200,
-    easingFunction: "ease-in-out",
-  },
-
-  plugins: [Plugins["SwapAnimation"]],
-});
-
-// make the task items hidden when starting to drag
-
-sortable.on("drag:move", (e) => {
-  e.source.style.visibility = "hidden";
-});
-
-// reasigning the task items to the sortable library when they get destroyed
-
-const updateSort = function () {
-  sortable.destroy();
-  sortable = new Sortable(document.querySelectorAll(".li-container"), {
-    draggable: ".full-item",
-    // mirror: {
-    //   constrainDimensions: true,
-    // },
-    SwapAnimation: {
-      duration: 200,
-      easingFunction: "ease-in-out",
-    },
-
-    plugins: [Plugins["SwapAnimation"]],
-  });
-
-  sortable.on("drag:move", (e) => {
-    e.source.style.visibility = "hidden";
-  });
-
-  // updating storage and re-asigning the lists to the sortable library
-  sortable.on("drag:stopped", (e) => {
-    updateStorage();
-    updateSortList();
-  });
-};
-
 // allowing lists to be sortable
 
 let sortableList = new Sortable(document.querySelectorAll(".list-container"), {
   draggable: ".full-list",
-  // mirror: {
-  //   constrainDimensions: true,
-  // },
+  mirror: {
+    constrainDimensions: true,
+  },
   SwapAnimation: {
     duration: 200,
     easingFunction: "ease-in-out",
@@ -116,9 +69,9 @@ const updateSortList = () => {
   sortableList.destroy();
   sortableList = new Sortable(document.querySelectorAll(".list-container"), {
     draggable: ".full-list",
-    // mirror: {
-    //   constrainDimensions: true,
-    // },
+    mirror: {
+      constrainDimensions: true,
+    },
     SwapAnimation: {
       duration: 200,
       easingFunction: "ease-in-out",
@@ -135,35 +88,114 @@ const updateSortList = () => {
   });
 };
 
+// allowing task items to be sortable
+let sortable = new Sortable(document.querySelectorAll(".li-container"), {
+  draggable: ".full-item",
+  mirror: {
+    constrainDimensions: true,
+  },
+  SwapAnimation: {
+    duration: 200,
+    easingFunction: "ease-in-out",
+  },
+
+  plugins: [Plugins["SwapAnimation"]],
+});
+
+// make the task items hidden when starting to drag
+sortable.on("drag:move", (e) => {
+  e.source.style.visibility = "hidden";
+});
+
+sortable.on("drag:stopped", (e) => {
+  updateStorage();
+  updateSortList();
+});
+
+// reasigning the task items to the sortable library when they get destroyed
+const updateSort = function () {
+  sortable.destroy();
+  sortable = new Sortable(document.querySelectorAll(".li-container"), {
+    draggable: ".full-item",
+    mirror: {
+      constrainDimensions: true,
+    },
+    SwapAnimation: {
+      duration: 200,
+      easingFunction: "ease-in-out",
+    },
+
+    plugins: [Plugins["SwapAnimation"]],
+  });
+
+  sortable.on("drag:move", (e) => {
+    e.source.style.visibility = "hidden";
+  });
+
+  // updating storage and re-asigning the lists to the sortable library
+  sortable.on("drag:stopped", (e) => {
+    updateStorage();
+    updateSortList();
+  });
+};
+
 const taskTitleMarkup = `
  <div class="title-input-box">
-  <textarea class='task-textarea-title' name="task-text" id="task-text" placeholder="Enter task name" ></textarea>
+  <textarea class='task-textarea-title' name="task-text" id="task-text" placeholder="Enter list name" ></textarea>
  </div>
 `;
 
 const textareaMarkup = `
-<textarea class='task-textarea' name="task-text" id="task-text" placeholder="Enter task name" ></textarea>
+<textarea class='task-textarea' name="task-text" id="task-text" placeholder="Enter task"></textarea>
 `;
 
 const gitTextareaMarkup = (value) => {
   const textareaValue = `
-<textarea class='task-textarea' name="task-text" id="task-text" placeholder="Enter task name" >${value}</textarea>
+<textarea class='task-textarea' name="task-text" id="task-text" placeholder="Enter task" >${value}</textarea>
 `;
   return textareaValue;
 };
 
 const gitLiMarkup = (value) => {
   const newListItemMarkup = `
-          <div class='full-item'>
-              <li  class="list-item"><span class='list-item-text'>${value}</span> <img id='edit-con' class= 'edit-icon-li' src="${pen}"/>  </li>
-              <div id = 'tab' class='li-edit-tab'>  <div class='tab-icon tab-pen'> <img class= 'edit-pen-li tab-img' src="${pen}"/> <p class='tab-text-pen'> Edit task </p> </div> <div class='tab-icon tab-trash'> <img class= 'edit-trash-li tab-img' src="${trash}"/> <p class='tab-text-trash'> Remove task </p> </div> </div> </div>
+           <div class='full-item'>
+
+                      <li  class="list-item">
+                        <div class="task-header">
+                          <p class="add-tag">Add Tag +</p>
+                         <img id='edit-con' class= 'edit-icon-li' src="${dots}"/>
+                        </div>
+
+                         <p class='list-item-text'>${value}</p>
+
+                        <div class="task-footer">
+                         <p class="created"> <img class="clock" src="${clock}" alt=""> 4 May</p>
+                         <p class="created"> <img class="clock" src="${clock}" alt="">Due 18 May</p>
+                        </div>
+
+
+                      </li>
+
+                      <div id = 'tab' class='li-edit-tab'>
+                          <div class='tab-icon tab-pen'>
+                             <img class= 'edit-pen-li tab-img' src="${pen}"/>
+                             <p class='tab-text-pen'> Edit task </p>
+                          </div>
+
+                          <div class='tab-icon tab-trash'>
+                            <img class= 'edit-trash-li tab-img' src="${trash}"/> <p class='tab-text-trash'> Remove task </p>
+                          </div>
+
+                      </div>
+                    </div>
           `;
   return newListItemMarkup;
 };
 
 // creating new lists
 
-newList.addEventListener("click", () => {
+newList.addEventListener("click", (e) => {
+  e.preventDefault();
   lists.insertAdjacentHTML("beforeend", taskTitleMarkup);
   const taskTextareaTitle = document.querySelector(".task-textarea-title");
   const titleInputBox = document.querySelector(".title-input-box");
@@ -191,9 +223,9 @@ newList.addEventListener("click", () => {
 
         lists.insertAdjacentHTML("beforeend", newListMarkup);
         updateStorage();
+        updateSortList();
       }
     }
-    updateSort();
   });
   // adding the list with the title when clicked outside
 
@@ -221,24 +253,21 @@ newList.addEventListener("click", () => {
       updateStorage();
       updateSortList();
     }
-
-    updateSort();
   });
 
   // animation scroll when you click the add new list button
 
   newListContainer.scrollIntoView({ behavior: "smooth" });
-  updateSort();
 });
 
 // switching between the list and task item to be draggable (only 1 part of the elements can be drggable)
-
 lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".list-item-text")) {
     sortableList.destroy();
   }
   if (e.target.matches(".add-task")) {
     sortableList.destroy();
+    sortable.destroy();
   }
   if (e.target.matches(".edit-icon-li")) {
     sortable.destroy();
@@ -253,16 +282,26 @@ lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".li-container")) {
     sortableList.destroy();
   }
-
   if (e.target.matches(".task-textarea")) {
     sortableList.destroy();
     sortable.destroy();
   }
-});
-console.log("zx");
-sortable.on("drag:stopped", (e) => {
-  updateStorage();
-  updateSortList();
+  if (e.target.matches(".task-header")) {
+    sortableList.destroy();
+  }
+  if (e.target.matches(".add-tag")) {
+    sortableList.destroy();
+    sortable.destroy();
+  }
+  if (e.target.matches(".task-footer")) {
+    sortableList.destroy();
+  }
+  if (e.target.matches(".created")) {
+    sortableList.destroy();
+  }
+  if (e.target.matches(".clock")) {
+    sortableList.destroy();
+  }
 });
 
 // update sorting list when scrolling is stoped
@@ -299,9 +338,10 @@ window.addEventListener(
 );
 
 // adding the editing tab when you click the pencil inside the task items
-lists.addEventListener("mousedown", (e) => {
+lists.addEventListener("click", (e) => {
   if (e.target.matches(".edit-icon-li")) {
-    const getEl = e.path[1].nextElementSibling;
+    const getEl = e.path[2].nextElementSibling;
+    const iconDot = e.path[1].childNodes[3];
 
     if (getEl) {
       getEl.classList.toggle("display-block");
@@ -309,21 +349,23 @@ lists.addEventListener("mousedown", (e) => {
   }
 });
 
-// removing open task item tab on reload
-
+// removing task tab when clicking outside
 let tabTrash = "";
 window.addEventListener("click", (e) => {
-  tabTrash = document.querySelector(".display-block");
+  tabTrash = document.querySelectorAll(".li-edit-tab");
 
-  if (tabTrash) {
-    const iconLi = tabTrash.previousElementSibling.childNodes[2];
-
-    if (e.target != tabTrash && e.target != iconLi) {
-      tabTrash.classList.remove("display-block");
-      updateSort();
-      updateSortList();
+  tabTrash.forEach((el) => {
+    if (el) {
+      const iconLi = el.previousElementSibling.childNodes[1].childNodes[3];
+      if (el.classList.contains("display-block")) {
+        if (e.target != el && e.target != iconLi) {
+          el.classList.remove("display-block");
+          updateSort();
+          updateSortList();
+        }
+      }
     }
-  }
+  });
 });
 
 // logic for removing task items when clicking remove item button in the tabs menu
@@ -354,12 +396,13 @@ lists.addEventListener("click", (e) => {
 const editTask = (element) => {
   element.style.display = "none";
   // get the text of the list item
-  const liInnerText = element.childNodes[1].firstChild.innerText;
+  const liInnerText = element.childNodes[1].childNodes[3].innerText;
 
   element.insertAdjacentHTML("afterend", gitTextareaMarkup(liInnerText));
   element.remove();
 
   const taskTextarea = document.querySelector(".task-textarea");
+  console.log(taskTextarea);
 
   taskTextarea.focus();
   // move cursor to the end of the word
@@ -372,25 +415,26 @@ const editTask = (element) => {
     if (e.key === "Enter") {
       taskTextarea.remove();
     }
-    taskTextarea.addEventListener("blur", (e) => {
-      e.stopImmediatePropagation();
+  });
+  taskTextarea.addEventListener("blur", (e) => {
+    e.stopImmediatePropagation();
 
-      const textValue = taskTextarea.value;
+    const textValue = taskTextarea.value;
+    console.log(textValue);
 
-      // only adding new task item if the textarea box containes text
-      if (textValue) {
-        taskTextarea.insertAdjacentHTML("afterend", gitLiMarkup(textValue));
-        taskTextarea.remove();
-        updateStorage();
-      }
-      if (!textValue) {
-        taskTextarea.remove();
-        updateStorage();
-      }
+    // only adding new task item if the textarea box containes text
+    if (textValue) {
+      taskTextarea.insertAdjacentHTML("afterend", gitLiMarkup(textValue));
+      taskTextarea.remove();
+      updateStorage();
+    }
+    if (!textValue) {
+      taskTextarea.remove();
+      updateStorage();
+    }
 
-      updateSort();
-      updateSortList();
-    });
+    updateSort();
+    updateSortList();
   });
 };
 
@@ -399,19 +443,16 @@ lists.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.matches(".tab-pen")) {
     const tab = e.path[2];
-
     editTask(tab);
   }
 
   if (e.target.matches(".edit-pen-li")) {
     const tab = e.path[3];
-
     editTask(tab);
   }
 
   if (e.target.matches(".tab-text-pen")) {
     const tab = e.path[3];
-
     editTask(tab);
   }
 });
@@ -422,6 +463,8 @@ lists.addEventListener("click", (e) => {
   if (e.target.matches(".add-task")) {
     const getEl = e.path[1].firstChild.nextSibling;
     const firstChild = getEl.childNodes[3];
+    console.log(getEl);
+    console.log(firstChild);
 
     //entering teaxtare box when click the add task button
     firstChild.insertAdjacentHTML("beforeend", textareaMarkup);
@@ -432,39 +475,35 @@ lists.addEventListener("click", (e) => {
     // adding text area text to a new task item when pressing enter
     taskTextarea.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
+        const textValue = taskTextarea.value;
         taskTextarea.remove();
 
-        const textValue = taskTextarea.value;
         // only adding new task item if the textarea box containes text
         if (textValue) {
           firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
           updateStorage();
-          updateSort();
-          updateSortList();
-        } else {
-          updateSortList();
         }
+
+        // updateSort();
+        // updateSortList();
       }
     });
 
     // adding text area text to a new task item when clicking outside of it
     taskTextarea.addEventListener("blur", (e) => {
-      taskTextarea.remove();
       const textValue = taskTextarea.value;
+      taskTextarea.remove();
+
       // only adding new task item if the textarea box containes text
       if (textValue) {
         firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
         updateStorage();
-        updateSort();
-        updateSortList();
-      } else {
-        updateSortList();
       }
+
+      // updateSort();
+      // updateSortList();
     });
   }
-  // if (e.target.matches(".edit-icon-li")) {
-  //   updateStorage();
-  // }
 });
 
 // clear button for deleting localstorage

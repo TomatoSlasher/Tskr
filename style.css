@@ -143,6 +143,7 @@ p {
 
   height: min-content;
   margin: 0rem 1rem;
+
   border-radius: 10px;
   max-height: 27rem;
 }
@@ -167,7 +168,11 @@ p {
   overflow-y: auto;
   margin: 0rem 0.8rem;
   /* width: 20rem; */
-  overflow-x: visible;
+  overflow-x: hidden;
+}
+.full-item {
+  margin-bottom: 1rem;
+  z-index: 1;
 }
 
 .li-container::-webkit-scrollbar-track {
@@ -240,6 +245,8 @@ p {
 }
 .list-item-text {
   margin: 0.6rem;
+  font-size: 20px;
+  overflow-wrap: break-word;
 }
 
 .task-footer {
@@ -276,7 +283,7 @@ p {
   display: none;
   bottom: 10%;
   border-radius: 10px;
-  z-index: 10;
+  z-index: 2;
 }
 .tab-icon {
   display: flex;
@@ -311,8 +318,8 @@ p {
 }
 
 .task-textarea {
-  width: 16.8rem;
-  height: 2.65rem;
+  width: 16.2rem;
+  height: 5.65rem;
   padding: 0.5rem;
   padding-top: 0.7rem;
   resize: none;

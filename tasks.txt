@@ -16,6 +16,8 @@ FEATURES :
 []- light and dark mode
 []- task counter in lists
 []- creation date in task card
+[]- cursoer changing
+[]- text area btn
 
 BUGS :
 []- fix multiple tabs open when clicking edit icon
@@ -24,3 +26,6 @@ BUGS :
 [x]- multiple add tasks e.prevent
 []- li scroll bar stops blur
 []- sorting item doesn't work sometimes (pointer-events keep showing)
+[]- list breaks when click add task twice
+
+update sortlist on mouse enter and when sortlist start return (stop function)
