@@ -245,7 +245,7 @@ newList.addEventListener("click", (e) => {
 
                   </ul>
 
-                  <p  class="add-task">Add task <span class="plus-sign">+</span></p>
+                  <p  class="add-task">Add task +</p>
                 </div>
         `;
 
@@ -261,6 +261,13 @@ newList.addEventListener("click", (e) => {
 });
 
 // switching between the list and task item to be draggable (only 1 part of the elements can be drggable)
+
+// lists.addEventListener("mouseout", (e) => {
+//   if (e.target.matches(".add-task")) {
+//     console.log("out");
+//     updateSortList();
+//   }
+// });
 lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".list-item-text")) {
     sortableList.destroy();
@@ -457,7 +464,7 @@ lists.addEventListener("click", (e) => {
   }
 });
 
-// adding new task items
+// adding new task
 lists.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.matches(".add-task")) {
@@ -466,7 +473,7 @@ lists.addEventListener("click", (e) => {
     console.log(getEl);
     console.log(firstChild);
 
-    //entering teaxtare box when click the add task button
+    //entering teaxtarea box when click the add task button
     firstChild.insertAdjacentHTML("beforeend", textareaMarkup);
 
     const taskTextarea = document.querySelector(".task-textarea");
@@ -484,8 +491,8 @@ lists.addEventListener("click", (e) => {
           updateStorage();
         }
 
-        // updateSort();
-        // updateSortList();
+        updateSort();
+        updateSortList();
       }
     });
 
@@ -500,8 +507,9 @@ lists.addEventListener("click", (e) => {
         updateStorage();
       }
 
-      // updateSort();
-      // updateSortList();
+      updateSort();
+      updateSortList();
+      console.log("zzz");
     });
   }
 });
