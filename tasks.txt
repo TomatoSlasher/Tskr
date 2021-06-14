@@ -20,12 +20,13 @@ FEATURES :
 []- text area btn
 
 BUGS :
-[]- fix multiple tabs open when clicking edit icon
+[x]- fix multiple tabs open when clicking edit icon
 []- li tab positioning
 [x]- fix nested li when editing task
 [x]- multiple add tasks e.prevent
 []- li scroll bar stops blur
-[]- sorting item doesn't work sometimes (pointer-events keep showing)
-[]- list breaks when click add task twice
+[x]- sorting item doesn't work sometimes (pointer-events keep showing)
+[x]- list breaks when click add task twice
+[]- list crashes when textarea for task is open and click slightly outisde of its
 
-update sortlist on mouse enter and when sortlist start return (stop function)
+

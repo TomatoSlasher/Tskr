@@ -261,19 +261,6 @@ newList.addEventListener("click", (e) => {
 });
 
 // switching between the list and task item to be draggable (only 1 part of the elements can be drggable)
-
-// lists.addEventListener("mouseout", (e) => {
-//   if (e.target.matches(".add-task")) {
-//     console.log("out");
-//     updateSortList();
-//   }
-// });
-// lists.addEventListener("mouseover", (e) => {
-//   if (e.target.matches(".add-task")) {
-//     console.log("over");
-//     sortableList.destroy();
-//   }
-// });
 lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".list-item-text")) {
     sortableList.destroy();
@@ -415,7 +402,6 @@ const editTask = (element) => {
   element.remove();
 
   const taskTextarea = document.querySelector(".task-textarea");
-  console.log(taskTextarea);
 
   taskTextarea.focus();
   // move cursor to the end of the word
@@ -433,7 +419,6 @@ const editTask = (element) => {
     e.stopImmediatePropagation();
 
     const textValue = taskTextarea.value;
-    console.log(textValue);
 
     // only adding new task item if the textarea box containes text
     if (textValue) {
@@ -470,30 +455,19 @@ lists.addEventListener("click", (e) => {
   }
 });
 
-// adding new task
-lists.addEventListener("click", (e) => {
-  // e.preventDefault();
-  if (e.target.matches(".add-task")) {
-    const getEl = e.path[1].firstChild.nextSibling;
-    const firstChild = getEl.childNodes[3];
-    console.log(getEl);
-    console.log(firstChild);
-
-    //entering teaxtarea box when click the add task button
-    firstChild.insertAdjacentHTML("beforeend", textareaMarkup);
-
-    const taskTextarea = document.querySelector(".task-textarea");
-
-    taskTextarea.focus();
+const textareaHandler = (first) => {
+  const textarea = document.querySelectorAll(".task-textarea");
+  textarea.forEach((el) => {
+    el.focus();
     // adding text area text to a new task item when pressing enter
-    taskTextarea.addEventListener("keypress", (e) => {
+    el.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        const textValue = taskTextarea.value;
-        taskTextarea.remove();
+        const textValue = el.value;
+        el.remove();
 
         // only adding new task item if the textarea box containes text
         if (textValue) {
-          firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
+          first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
           updateStorage();
         }
 
@@ -503,24 +477,45 @@ lists.addEventListener("click", (e) => {
     });
 
     // adding text area text to a new task item when clicking outside of it
-    taskTextarea.addEventListener("blur", (e) => {
-      const textValue = taskTextarea.value;
-
+    el.addEventListener("focusout", (e) => {
+      // el.remove();
+      const textValue = el.value;
+      console.log("blur");
+      el.remove();
       // only adding new task item if the textarea box containes text
       if (textValue) {
-        firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
+        first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
+        el.remove();
         updateStorage();
-        taskTextarea.remove();
+        updateSort();
+        updateSortList();
       }
-      if (!textValue) {
-        setTimeout(() => {
-          taskTextarea.remove();
-        }, 50);
-      }
+      // if (!textValue) {
+      //   setTimeout(() => {
+      //     el.remove();
+      //     // updateSortList();
+      //   }, 0);
+      // }
+
+      updateStorage();
       updateSort();
       updateSortList();
-      // console.log("zzz");
     });
+  });
+};
+// adding new task
+lists.addEventListener("click", (e) => {
+  // e.preventDefault();
+  if (e.target.matches(".add-task")) {
+    const getEl = e.path[1].firstChild.nextSibling;
+    const firstChild = getEl.childNodes[3];
+
+    //entering teaxtarea box when click the add task button
+    firstChild.insertAdjacentHTML("beforeend", textareaMarkup);
+
+    // const taskTextarea = document.querySelector(".task-textarea");
+    textareaHandler(firstChild);
+    // taskTextarea.focus();
   }
 });
 
