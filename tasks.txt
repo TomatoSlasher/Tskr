@@ -18,6 +18,7 @@ FEATURES :
 []- creation date in task card
 []- cursoer changing
 []- text area btn
+[]- update sortable list btn when sort list becomes sortable
 
 BUGS :
 [x]- fix multiple tabs open when clicking edit icon

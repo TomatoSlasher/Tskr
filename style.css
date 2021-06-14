@@ -29,7 +29,15 @@ h2,
 p {
   color: var(--main--txt) !important;
 }
+textarea {
+  font-family: "Roboto", Helvetica, sans-serif;
 
+  background-color: white;
+  border: 2px solid #b01eea;
+  overflow: hidden;
+  overflow-y: auto;
+  outline: none;
+}
 .app {
   margin-top: 4rem;
   height: 73.5vh;
@@ -257,6 +265,15 @@ p {
 .tags-plus:hover {
   background-color: var(--btn--bg);
 }
+.tags-text {
+  overflow: visible;
+  margin: 0.25rem 0rem;
+  min-width: 9rem;
+  height: 2.8rem;
+  resize: none;
+  border-radius: 20px;
+  padding: 0.8rem 0.5rem;
+}
 .edit-icon-li {
   height: 2rem;
   padding: 0.3rem;
@@ -270,7 +287,7 @@ p {
   border-radius: 10px;
 }
 .list-item-text {
-  margin: 0.6rem;
+  margin: 0rem 0.6rem;
   font-size: 20px;
   overflow-wrap: break-word;
 }
@@ -352,15 +369,7 @@ p {
   font-size: 15px;
   border-radius: 5px;
 }
-textarea {
-  font-family: "Roboto", Helvetica, sans-serif;
 
-  background-color: white;
-  border: 2px solid #b01eea;
-  overflow: hidden;
-  overflow-y: auto;
-  outline: none;
-}
 .task-textarea::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #cccccc;
