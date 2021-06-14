@@ -21,6 +21,7 @@ FEATURES :
 []- update sortable list btn when sort list becomes sortable
 
 BUGS :
+[]-remove sortList
 [x]- fix multiple tabs open when clicking edit icon
 []- li tab positioning
 [x]- fix nested li when editing task

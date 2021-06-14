@@ -8,6 +8,7 @@ import plus from "url:./svg/plus-solid.svg";
 import trash from "url:./svg/trash-alt-solid.svg";
 import dots from "url:./svg/ellipsis-h-solid.svg";
 import clock from "url:./svg/clock-regular.svg";
+import times from "url:./svg/times-solid.svg";
 
 //imported html element
 
@@ -42,7 +43,6 @@ if (items) {
 }
 
 // allowing lists to be sortable
-
 let sortableList = new Sortable(document.querySelectorAll(".list-container"), {
   draggable: ".full-list",
   mirror: {
@@ -64,7 +64,6 @@ sortableList.on("drag:stopped", (e) => {
 });
 
 // reasigning the lists to the sortable library when they get destroyed
-
 const updateSortList = () => {
   sortableList.destroy();
   sortableList = new Sortable(document.querySelectorAll(".list-container"), {
@@ -88,7 +87,7 @@ const updateSortList = () => {
   });
 };
 
-// allowing task items to be sortable
+// // allowing task items to be sortable
 let sortable = new Sortable(document.querySelectorAll(".li-container"), {
   draggable: ".full-item",
   mirror: {
@@ -162,7 +161,10 @@ const gitLiMarkup = (value) => {
 
                       <li  class="list-item">
                         <div class="task-header">
-                          <p class="add-tag">Add Tag +</p>
+                           <div class="tags">
+                           <p class="add-tag tags-el">Add Tag +</p>
+
+                           </div>
                          <img id='edit-con' class= 'edit-icon-li' src="${dots}"/>
                         </div>
 
@@ -192,8 +194,110 @@ const gitLiMarkup = (value) => {
   return newListItemMarkup;
 };
 
-// creating new lists
+const tagTextMarkup = `
+  <div class="text-tag-add">
+                              <textarea class='tags-text' name="tags-text" id="task-text" placeholder="Enter Tag"></textarea>
+                              <div class="add-cancel-btn">
+                                <p class="add-tag-btn tag-btn">Add Tag</p>
+                                <p class="cancel-tag-btn tag-btn">Cancel</p>
+                              </div>
 
+
+                            </div>
+  `;
+
+const tagMarkup = (value) => {
+  const markup = `
+   <p class="tags-el">${value}<img class = 'tag-delete' src="${times}" alt=""></p>
+  `;
+  return markup;
+};
+
+const insertTag = (value, el) => {
+  console.log(value);
+  console.log(el);
+  el.insertAdjacentHTML("afterend", tagMarkup(value));
+  el.remove();
+  updateStorage();
+  updateSort();
+  updateSortList();
+};
+
+// add new tags
+const tagTextHandler = (el) => {
+  el.insertAdjacentHTML("beforeBegin", tagTextMarkup);
+  const tagTextareaAll = document.querySelector(".text-tag-add");
+  const tagTextarea = document.querySelector(".tags-text");
+  const tagCancel = document.querySelector(".cancel-tag-btn");
+  const tagAdd = document.querySelector(".add-tag-btn");
+
+  tagTextarea.focus();
+  // move cursor to the end of the word
+  tagTextarea.setSelectionRange(
+    tagTextarea.value.length,
+    tagTextarea.value.length
+  );
+  tagCancel.addEventListener("click", () => {
+    tagTextareaAll.remove();
+    updateSort();
+    updateSortList();
+  });
+  tagAdd.addEventListener("click", () => {
+    const tagTextValue = tagTextarea.value.toLowerCase();
+    if (tagTextValue) {
+      insertTag(tagTextValue, tagTextareaAll);
+    }
+    if (!tagTextValue) {
+      tagTextareaAll.remove();
+    }
+    updateSort();
+    updateSortList();
+  });
+
+  tagTextarea.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const tagTextValue = tagTextarea.value.toLowerCase();
+      if (tagTextValue) {
+        insertTag(tagTextValue, tagTextareaAll);
+      }
+      if (!tagTextValue) {
+        tagTextareaAll.remove();
+      }
+      updateSort();
+      updateSortList();
+    }
+  });
+
+  tagTextarea.addEventListener("blur", (e) => {
+    window.addEventListener("click", () => {
+      if (e.target != tagCancel) {
+        const tagTextValue = tagTextarea.value.toLowerCase();
+        if (tagTextValue) {
+          insertTag(tagTextValue, tagTextareaAll);
+        }
+        if (!tagTextValue) {
+          tagTextareaAll.remove();
+        }
+      }
+    });
+    updateSort();
+    updateSortList();
+  });
+};
+
+lists.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (e.target.matches(".add-tag")) {
+    const addTagEl = e.path[0];
+    tagTextHandler(addTagEl);
+  }
+  if (e.target.matches(".tag-delete")) {
+    const tagEl = e.path[1];
+    tagEl.remove();
+  }
+});
+
+// creating new lists
 newList.addEventListener("click", (e) => {
   e.preventDefault();
   lists.insertAdjacentHTML("beforeend", taskTitleMarkup);
@@ -302,8 +406,24 @@ lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".clock")) {
     sortableList.destroy();
   }
+  if (e.target.matches(".tags")) {
+    sortableList.destroy();
+  }
+  if (e.target.matches(".tags-el")) {
+    sortableList.destroy();
+  }
+  if (e.target.matches(".tag-delete")) {
+    sortableList.destroy();
+    sortable.destroy();
+  }
 });
 
+lists.addEventListener("mouseup", (e) => {
+  if (e.target.matches(".tag-delete")) {
+    updateSort();
+    updateSortList();
+  }
+});
 // update sorting list when scrolling is stoped
 let timer = null;
 window.addEventListener(
@@ -480,7 +600,7 @@ const textareaHandler = (first) => {
     el.addEventListener("focusout", (e) => {
       // el.remove();
       const textValue = el.value;
-      console.log("blur");
+
       el.remove();
       // only adding new task item if the textarea box containes text
       if (textValue) {

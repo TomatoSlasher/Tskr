@@ -228,18 +228,7 @@ textarea {
   justify-content: space-between;
   padding: 0.6rem;
 }
-.add-tag {
-  font-size: 17px;
 
-  border: 2px dashed var(--btn);
-  padding: 0.4rem;
-  border-radius: 20px;
-  color: var(--btn) !important;
-  font-weight: bold;
-}
-.add-tag:hover {
-  background-color: var(--btn--bg);
-}
 .tags {
   width: 85%;
 }
@@ -255,11 +244,23 @@ textarea {
 }
 .tags-el img {
   height: 1rem;
-  margin-left: 0.2rem;
+  margin-left: 0.5rem;
   position: relative;
   top: 0.1rem;
   color: #e8e8e8;
   cursor: pointer;
+}
+.add-tag {
+  border: 2px dashed var(--btn) !important;
+
+  background-color: transparent !important;
+
+  color: var(--btn) !important ;
+
+  cursor: pointer;
+}
+.add-tag:hover {
+  background-color: var(--btn--bg) !important;
 }
 
 .tags-plus {
@@ -302,7 +303,7 @@ textarea {
   border-radius: 5px;
   background-color: var(--btn);
   padding: 0.4rem 0.5rem;
-
+  cursor: pointer;
   width: 100%;
 }
 .add-tag-btn:hover {
