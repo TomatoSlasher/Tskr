@@ -16,7 +16,7 @@ FEATURES :
 []- light and dark mode
 []- task counter in lists
 []- creation date in task card
-[]- cursoer changing
+[]- cursoer changing when dragging
 []- text area btn
 []- update sortable list btn when sort list becomes sortable
 
