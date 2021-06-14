@@ -268,6 +268,12 @@ newList.addEventListener("click", (e) => {
 //     updateSortList();
 //   }
 // });
+// lists.addEventListener("mouseover", (e) => {
+//   if (e.target.matches(".add-task")) {
+//     console.log("over");
+//     sortableList.destroy();
+//   }
+// });
 lists.addEventListener("mousedown", (e) => {
   if (e.target.matches(".list-item-text")) {
     sortableList.destroy();
@@ -466,7 +472,7 @@ lists.addEventListener("click", (e) => {
 
 // adding new task
 lists.addEventListener("click", (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   if (e.target.matches(".add-task")) {
     const getEl = e.path[1].firstChild.nextSibling;
     const firstChild = getEl.childNodes[3];
@@ -499,17 +505,21 @@ lists.addEventListener("click", (e) => {
     // adding text area text to a new task item when clicking outside of it
     taskTextarea.addEventListener("blur", (e) => {
       const textValue = taskTextarea.value;
-      taskTextarea.remove();
 
       // only adding new task item if the textarea box containes text
       if (textValue) {
         firstChild.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
         updateStorage();
+        taskTextarea.remove();
       }
-
+      if (!textValue) {
+        setTimeout(() => {
+          taskTextarea.remove();
+        }, 50);
+      }
       updateSort();
       updateSortList();
-      console.log("zzz");
+      // console.log("zzz");
     });
   }
 });

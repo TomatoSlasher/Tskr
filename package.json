@@ -10,10 +10,10 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "parcel": "*"
-  },
   "dependencies": {
     "@shopify/draggable": "^1.0.0-beta.12"
+  },
+  "devDependencies": {
+    "parcel": "*"
   }
 }
