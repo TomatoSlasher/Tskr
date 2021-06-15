@@ -1,6 +1,8 @@
 //draggable library
 import { Sortable, Plugins } from "@shopify/draggable";
 
+//get randome color from string
+
 // svg iconss
 import edit from "url:./svg/edit-regular.svg";
 import pen from "url:./svg/pen-solid.svg";
@@ -23,6 +25,36 @@ const listClear = document.querySelector(".list-clear");
 const addTask = document.querySelectorAll(".add-task");
 const fullList = document.querySelectorAll(".full-list");
 const app = document.querySelector(".app");
+
+String.prototype.toColor = function () {
+  var colors = [
+    "#ff3f3f",
+    "#f2ab23",
+    "#ef4f91",
+    "#ff1a0a",
+    "#f9ea13",
+    "#5a49d8",
+    "#5cc4ed",
+    "#7216af",
+    "#ba0754",
+    "#32af1f",
+    "#1fa52f",
+    "#500da3",
+    "#a572cc",
+    "#f7ada3",
+    "#e57214",
+    "#424241",
+  ];
+
+  var hash = 0;
+  if (this.length === 0) return hash;
+  for (var i = 0; i < this.length; i++) {
+    hash = this.charCodeAt(i) + ((hash << 5) - hash);
+    hash = hash & hash;
+  }
+  hash = ((hash % colors.length) + colors.length) % colors.length;
+  return colors[hash];
+};
 
 // update local storage to current page inner html
 function updateStorage() {
@@ -210,7 +242,7 @@ const tagTextMarkup = `
 
 const tagMarkup = (value) => {
   const markup = `
-   <p class="tags-el">${value}<img class = 'tag-delete' src="${times}" alt=""></p>
+   <p class="tags-el tags-all">${value}<img class = 'tag-delete' src="${times}" alt=""></p>
   `;
   return markup;
 };
@@ -221,6 +253,7 @@ const insertTag = (value, el) => {
   updateStorage();
   updateSort();
   updateSortList();
+  tagsColors();
 };
 
 // add new tags
@@ -298,6 +331,16 @@ lists.addEventListener("click", (e) => {
   }
 });
 
+const tagsColors = () => {
+  const tagsAll = document.querySelectorAll(".tags-all");
+  tagsAll.forEach((el) => {
+    const tagText = el.innerText;
+    console.log(tagText);
+    const color = `${tagText}`.toColor();
+    el.style.backgroundColor = `${color}`;
+  });
+};
+tagsColors();
 // creating new lists
 newList.addEventListener("click", (e) => {
   e.preventDefault();

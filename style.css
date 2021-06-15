@@ -7,6 +7,7 @@
   --main--txt: #27334d;
   --sec--txt: #818285;
   --btn: #b01eea;
+  --btn-bg: #812ba3;
   --btn--dark: #d5b9e1;
   --btn--light: #e6c7f2;
   --tab: #f3f3f3;
@@ -268,7 +269,7 @@ textarea {
   margin-left: 0.5rem;
   position: relative;
   top: 0.1rem;
-  color: #e8e8e8;
+  color: #da1313;
   cursor: pointer;
 }
 .add-tag {
@@ -328,7 +329,7 @@ textarea {
   width: 100%;
 }
 .add-tag-btn:hover {
-  background-color: var(--btn--dark);
+  background-color: var(--btn-bg);
 }
 .cancel-tag-btn:hover {
   background-color: var(--btn--bg);
