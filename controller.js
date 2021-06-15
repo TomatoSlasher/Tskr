@@ -132,8 +132,16 @@ const taskTitleMarkup = `
 `;
 
 const textareaMarkup = `
-<textarea class='task-textarea' name="task-text" id="task-text" placeholder="Enter task"></textarea>
-`;
+  <div class="text-tag-add text-task-add">
+                              <textarea class='tags-text task-textarea' name="tags-text" id="task-text" placeholder="Enter Task"></textarea>
+                              <div class="add-cancel-btn">
+                                <p class="add-tag-btn tag-btn">Add Task</p>
+                                <p class="cancel-tag-btn tag-btn">Cancel</p>
+                              </div>
+
+
+                            </div>
+  `;
 
 const gitTextareaMarkup = (value) => {
   const textareaValue = `
@@ -284,7 +292,7 @@ const tagsColors = () => {
   const tagsAll = document.querySelectorAll(".tags-all");
   tagsAll.forEach((el) => {
     const tagText = el.innerText;
-    console.log(tagText);
+
     const color = `${tagText}`.toColor();
     el.style.backgroundColor = `${color}`;
   });
@@ -340,7 +348,7 @@ newList.addEventListener("click", (e) => {
 
                   </ul>
 
-                  <p  class="add-task"><span class='task-plus'><img src="${plus}"/> </span>  Add task</p>
+                  <p  class="add-task"><span class='task-plus'><img class = 'add-task-img' src="${plus}"/> </span>  Add task</p>
                 </div>
         `;
 
@@ -348,6 +356,7 @@ newList.addEventListener("click", (e) => {
       updateStorage();
     }
     updateStorage();
+    updateSort();
   });
 
   // animation scroll when you click the add new list button
@@ -385,29 +394,18 @@ lists.addEventListener("mouseup", (e) => {
   }
 });
 // update sorting list when scrolling is stoped
-let timer = null;
-window.addEventListener(
-  "scroll",
-  function (e) {
-    if (e.target.matches(".li-container")) {
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-      timer = setTimeout(function () {}, 50);
-    }
-  },
-  true
-);
 
 // update sortList
 window.addEventListener(
   "mousedown",
   function (e) {
-    if (e.target.matches(".li-container")) {
+    if (e.target.matches(".full-item")) {
       if (timer !== null) {
         clearTimeout(timer);
       }
-      timer = setTimeout(function () {}, 50);
+      timer = setTimeout(function () {
+        updateSort();
+      }, 50);
     }
   },
   true
@@ -530,46 +528,82 @@ lists.addEventListener("click", (e) => {
 });
 
 const textareaHandler = (first) => {
-  const textarea = document.querySelectorAll(".task-textarea");
-  textarea.forEach((el) => {
-    el.focus();
-    // adding text area text to a new task item when pressing enter
-    el.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const textValue = el.value;
-        el.remove();
+  const el = document.querySelector(".task-textarea");
+  const textTaskAdd = document.querySelector(".text-task-add");
+  const tagCancel = document.querySelector(".cancel-tag-btn");
+  const tagAdd = document.querySelector(".add-tag-btn");
 
-        // only adding new task item if the textarea box containes text
-        if (textValue) {
-          first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
-          updateStorage();
-        }
+  el.focus();
+  // adding text area text to a new task item when pressing enter
 
-        updateSort();
-      }
-    });
+  tagCancel.addEventListener("click", () => {
+    textTaskAdd.remove();
+    updateSort();
+  });
 
-    // adding text area text to a new task item when clicking outside of it
-    el.addEventListener("focusout", (e) => {
+  tagAdd.addEventListener("click", () => {
+    const textValue = el.value;
+
+    // only adding new task item if the textarea box containes text
+    if (textValue) {
+      first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
+      textTaskAdd.remove();
+      updateStorage();
+      updateSort();
+    }
+    if (!textValue) {
+      textTaskAdd.remove();
+    }
+
+    updateStorage();
+    updateSort();
+  });
+
+  el.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
       const textValue = el.value;
-      el.remove();
+      textTaskAdd.remove();
+
       // only adding new task item if the textarea box containes text
       if (textValue) {
         first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
-        el.remove();
         updateStorage();
-        updateSort();
       }
+
+      updateSort();
+    }
+  });
+
+  el.addEventListener("blur", (e) => {
+    const textValue = el.value;
+
+    if (textValue) {
+      first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
+      textTaskAdd.remove();
       updateStorage();
       updateSort();
-    });
+    }
+    if (!textValue) {
+      textTaskAdd.remove();
+    }
+
+    updateSort();
   });
 };
+
 // adding new task
 lists.addEventListener("click", (e) => {
-  // e.preventDefault();
   if (e.target.matches(".add-task")) {
     const getEl = e.path[1].firstChild.nextSibling;
+    const firstChild = getEl.childNodes[3];
+    //entering teaxtarea box when click the add task button
+    firstChild.insertAdjacentHTML("beforeend", textareaMarkup);
+
+    // const taskTextarea = document.querySelector(".task-textarea");
+    textareaHandler(firstChild);
+  }
+  if (e.target.matches(".add-task-img")) {
+    const getEl = e.path[3].childNodes[1];
     const firstChild = getEl.childNodes[3];
 
     //entering teaxtarea box when click the add task button

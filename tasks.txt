@@ -30,5 +30,6 @@ BUGS :
 [x]- sorting item doesn't work sometimes (pointer-events keep showing)
 [x]- list breaks when click add task twice
 []- list crashes when textarea for task is open and click slightly outisde of its
+[]-tag dosen't colse with you click add tag on aother task
 
 
