@@ -1,7 +1,7 @@
 FEATURES :
 []- delete list btn
 [x]- delete list item btn
-[]- multiple task files
+[del]- multiple task files
 []- home page with draggable boxes
 []- editing option when hovering on the task title and task item
 []- task item gave diffrent colors

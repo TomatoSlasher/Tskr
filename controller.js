@@ -103,7 +103,8 @@ let sortable = new Sortable(document.querySelectorAll(".li-container"), {
 
 // make the task items hidden when starting to drag
 sortable.on("drag:move", (e) => {
-  e.source.style.visibility = "hidden";
+  e.source.style.backgroundColor = "#cbcdd1";
+  e.source.childNodes[1].style.visibility = "hidden";
 });
 
 sortable.on("drag:stopped", (e) => {
@@ -128,7 +129,8 @@ const updateSort = function () {
   });
 
   sortable.on("drag:move", (e) => {
-    e.source.style.visibility = "hidden";
+    e.source.style.backgroundColor = "#cbcdd1";
+    e.source.childNodes[1].style.visibility = "hidden";
   });
 
   // updating storage and re-asigning the lists to the sortable library
@@ -214,8 +216,6 @@ const tagMarkup = (value) => {
 };
 
 const insertTag = (value, el) => {
-  console.log(value);
-  console.log(el);
   el.insertAdjacentHTML("afterend", tagMarkup(value));
   el.remove();
   updateStorage();
@@ -294,6 +294,7 @@ lists.addEventListener("click", (e) => {
   if (e.target.matches(".tag-delete")) {
     const tagEl = e.path[1];
     tagEl.remove();
+    updateStorage();
   }
 });
 
@@ -326,8 +327,6 @@ newList.addEventListener("click", (e) => {
         `;
 
         lists.insertAdjacentHTML("beforeend", newListMarkup);
-        updateStorage();
-        updateSortList();
       }
     }
   });
@@ -349,7 +348,7 @@ newList.addEventListener("click", (e) => {
 
                   </ul>
 
-                  <p  class="add-task">Add task +</p>
+                  <p  class="add-task"><span class='task-plus'><img src="${plus}"/> </span>  Add task</p>
                 </div>
         `;
 
@@ -357,6 +356,8 @@ newList.addEventListener("click", (e) => {
       updateStorage();
       updateSortList();
     }
+    updateStorage();
+    updateSortList();
   });
 
   // animation scroll when you click the add new list button
@@ -598,9 +599,7 @@ const textareaHandler = (first) => {
 
     // adding text area text to a new task item when clicking outside of it
     el.addEventListener("focusout", (e) => {
-      // el.remove();
       const textValue = el.value;
-
       el.remove();
       // only adding new task item if the textarea box containes text
       if (textValue) {
@@ -610,13 +609,6 @@ const textareaHandler = (first) => {
         updateSort();
         updateSortList();
       }
-      // if (!textValue) {
-      //   setTimeout(() => {
-      //     el.remove();
-      //     // updateSortList();
-      //   }, 0);
-      // }
-
       updateStorage();
       updateSort();
       updateSortList();
@@ -635,7 +627,6 @@ lists.addEventListener("click", (e) => {
 
     // const taskTextarea = document.querySelector(".task-textarea");
     textareaHandler(firstChild);
-    // taskTextarea.focus();
   }
 });
 
