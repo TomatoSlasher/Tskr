@@ -74,51 +74,6 @@ if (items) {
   lists.insertAdjacentHTML("afterbegin", items.listUL);
 }
 
-// allowing lists to be sortable
-let sortableList = new Sortable(document.querySelectorAll(".list-container"), {
-  draggable: ".full-list",
-  mirror: {
-    constrainDimensions: true,
-  },
-  SwapAnimation: {
-    duration: 200,
-    easingFunction: "ease-in-out",
-  },
-
-  plugins: [Plugins["SwapAnimation"]],
-});
-
-sortableList.on("drag:move", (e) => {
-  e.source.style.visibility = "hidden";
-});
-sortableList.on("drag:stopped", (e) => {
-  updateStorage();
-});
-
-// reasigning the lists to the sortable library when they get destroyed
-const updateSortList = () => {
-  sortableList.destroy();
-  sortableList = new Sortable(document.querySelectorAll(".list-container"), {
-    draggable: ".full-list",
-    mirror: {
-      constrainDimensions: true,
-    },
-    SwapAnimation: {
-      duration: 200,
-      easingFunction: "ease-in-out",
-    },
-
-    plugins: [Plugins["SwapAnimation"]],
-  });
-
-  sortableList.on("drag:move", (e) => {
-    e.source.style.visibility = "hidden";
-  });
-  sortableList.on("drag:stopped", (e) => {
-    updateStorage();
-  });
-};
-
 // // allowing task items to be sortable
 let sortable = new Sortable(document.querySelectorAll(".li-container"), {
   draggable: ".full-item",
@@ -141,7 +96,6 @@ sortable.on("drag:move", (e) => {
 
 sortable.on("drag:stopped", (e) => {
   updateStorage();
-  updateSortList();
 });
 
 // reasigning the task items to the sortable library when they get destroyed
@@ -168,7 +122,6 @@ const updateSort = function () {
   // updating storage and re-asigning the lists to the sortable library
   sortable.on("drag:stopped", (e) => {
     updateStorage();
-    updateSortList();
   });
 };
 
@@ -252,7 +205,7 @@ const insertTag = (value, el) => {
   el.remove();
   updateStorage();
   updateSort();
-  updateSortList();
+
   tagsColors();
 };
 
@@ -273,7 +226,6 @@ const tagTextHandler = (el) => {
   tagCancel.addEventListener("click", () => {
     tagTextareaAll.remove();
     updateSort();
-    updateSortList();
   });
   tagAdd.addEventListener("click", () => {
     const tagTextValue = tagTextarea.value.toLowerCase();
@@ -284,7 +236,6 @@ const tagTextHandler = (el) => {
       tagTextareaAll.remove();
     }
     updateSort();
-    updateSortList();
   });
 
   tagTextarea.addEventListener("keypress", (e) => {
@@ -297,7 +248,6 @@ const tagTextHandler = (el) => {
         tagTextareaAll.remove();
       }
       updateSort();
-      updateSortList();
     }
   });
 
@@ -314,7 +264,6 @@ const tagTextHandler = (el) => {
       }
     });
     updateSort();
-    updateSortList();
   });
 };
 
@@ -397,10 +346,8 @@ newList.addEventListener("click", (e) => {
 
       lists.insertAdjacentHTML("beforeend", newListMarkup);
       updateStorage();
-      updateSortList();
     }
     updateStorage();
-    updateSortList();
   });
 
   // animation scroll when you click the add new list button
@@ -410,54 +357,24 @@ newList.addEventListener("click", (e) => {
 
 // switching between the list and task item to be draggable (only 1 part of the elements can be drggable)
 lists.addEventListener("mousedown", (e) => {
-  if (e.target.matches(".list-item-text")) {
-    sortableList.destroy();
-  }
   if (e.target.matches(".add-task")) {
-    sortableList.destroy();
     sortable.destroy();
   }
   if (e.target.matches(".edit-icon-li")) {
     sortable.destroy();
-    sortableList.destroy();
   }
   if (e.target.matches(".full-item")) {
     sortable.destroy();
   }
-  if (e.target.matches(".list-item")) {
-    sortableList.destroy();
-  }
-  if (e.target.matches(".li-container")) {
-    sortableList.destroy();
-  }
   if (e.target.matches(".task-textarea")) {
-    sortableList.destroy();
     sortable.destroy();
   }
   if (e.target.matches(".task-header")) {
-    sortableList.destroy();
   }
   if (e.target.matches(".add-tag")) {
-    sortableList.destroy();
     sortable.destroy();
   }
-  if (e.target.matches(".task-footer")) {
-    sortableList.destroy();
-  }
-  if (e.target.matches(".created")) {
-    sortableList.destroy();
-  }
-  if (e.target.matches(".clock")) {
-    sortableList.destroy();
-  }
-  if (e.target.matches(".tags")) {
-    sortableList.destroy();
-  }
-  if (e.target.matches(".tags-el")) {
-    sortableList.destroy();
-  }
   if (e.target.matches(".tag-delete")) {
-    sortableList.destroy();
     sortable.destroy();
   }
 });
@@ -465,7 +382,6 @@ lists.addEventListener("mousedown", (e) => {
 lists.addEventListener("mouseup", (e) => {
   if (e.target.matches(".tag-delete")) {
     updateSort();
-    updateSortList();
   }
 });
 // update sorting list when scrolling is stoped
@@ -477,9 +393,7 @@ window.addEventListener(
       if (timer !== null) {
         clearTimeout(timer);
       }
-      timer = setTimeout(function () {
-        updateSortList();
-      }, 50);
+      timer = setTimeout(function () {}, 50);
     }
   },
   true
@@ -493,9 +407,7 @@ window.addEventListener(
       if (timer !== null) {
         clearTimeout(timer);
       }
-      timer = setTimeout(function () {
-        updateSortList();
-      }, 50);
+      timer = setTimeout(function () {}, 50);
     }
   },
   true
@@ -525,7 +437,6 @@ window.addEventListener("click", (e) => {
         if (e.target != el && e.target != iconLi) {
           el.classList.remove("display-block");
           updateSort();
-          updateSortList();
         }
       }
     }
@@ -538,21 +449,21 @@ lists.addEventListener("click", (e) => {
     const liSibling = e.path[2];
     liSibling.remove();
     updateSort();
-    updateSortList();
+
     updateStorage();
   }
   if (e.target.matches(".edit-trash-li")) {
     const liSibling = e.path[3];
     liSibling.remove();
     updateSort();
-    updateSortList();
+
     updateStorage();
   }
   if (e.target.matches(".tab-text-trash")) {
     const liSibling = e.path[3];
     liSibling.remove();
     updateSort();
-    updateSortList();
+
     updateStorage();
   }
 });
@@ -596,7 +507,6 @@ const editTask = (element) => {
     }
 
     updateSort();
-    updateSortList();
   });
 };
 
@@ -636,7 +546,6 @@ const textareaHandler = (first) => {
         }
 
         updateSort();
-        updateSortList();
       }
     });
 
@@ -650,11 +559,9 @@ const textareaHandler = (first) => {
         el.remove();
         updateStorage();
         updateSort();
-        updateSortList();
       }
       updateStorage();
       updateSort();
-      updateSortList();
     });
   });
 };
