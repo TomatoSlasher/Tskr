@@ -126,10 +126,16 @@ const updateSort = function () {
 };
 
 const taskTitleMarkup = `
- <div class="title-input-box">
-  <textarea class='task-textarea-title' name="task-text" id="task-text" placeholder="Enter list name" ></textarea>
- </div>
-`;
+  <div class="text-tag-add text-list-add">
+                              <textarea class='tags-text list-textarea' name="tags-text" id="task-text" placeholder="Enter Task"></textarea>
+                              <div class="add-cancel-btn">
+                                <p class="add-tag-btn tag-btn">Add Task</p>
+                                <p class="cancel-tag-btn tag-btn">Cancel</p>
+                              </div>
+
+
+                            </div>
+  `;
 
 const textareaMarkup = `
   <div class="text-tag-add text-task-add">
@@ -541,7 +547,9 @@ const textareaHandler = (first) => {
 
   // adding text area text to a new task item when pressing enter
 
-  tagCancel.addEventListener("click", () => {
+  tagCancel.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    console.log("kgk");
     textTaskAdd.remove();
     updateSort();
   });
@@ -578,22 +586,27 @@ const textareaHandler = (first) => {
       updateSort();
     }
   });
-
-  el.addEventListener("blur", (e) => {
-    const textValue = el.value;
-
-    if (textValue) {
-      first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
-      textTaskAdd.remove();
-      updateStorage();
-      updateSort();
-    }
-    if (!textValue) {
-      textTaskAdd.remove();
-    }
-
-    updateSort();
-  });
+  window.addEventListener(
+    "mousedown",
+    (e) => {
+      if (e.target != tagCancel) {
+        el.addEventListener("blur", (e) => {
+          const textValue = el.value;
+          if (textValue) {
+            first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
+            textTaskAdd.remove();
+            updateStorage();
+            updateSort();
+          }
+          if (!textValue) {
+            textTaskAdd.remove();
+          }
+          updateSort();
+        });
+      }
+    },
+    { once: true }
+  );
 };
 
 // adding new task
