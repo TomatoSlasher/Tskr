@@ -194,6 +194,21 @@ const gitLiMarkup = (value) => {
           `;
   return newListItemMarkup;
 };
+const gitListMarkup = (value) => {
+  const newListMarkup = `
+        <div class="full-list">
+                  <ul class="list">
+                  <h2 class='list-title'>${value}
+                  <img class= 'edit-icon'src="${edit}"/> </h2>
+                  <div class = 'li-container'></div>
+
+                  </ul>
+
+                  <p  class="add-task"><span class='task-plus'><img class = 'add-task-img' src="${plus}"/> </span>  Add task</p>
+                </div>
+        `;
+  return newListMarkup;
+};
 
 const tagTextMarkup = `
   <div class="text-tag-add">
@@ -304,69 +319,87 @@ const tagsColors = () => {
   });
 };
 tagsColors();
-// creating new lists
-newList.addEventListener("click", (e) => {
-  e.preventDefault();
-  lists.insertAdjacentHTML("beforeend", taskTitleMarkup);
-  const taskTextareaTitle = document.querySelector(".task-textarea-title");
-  const titleInputBox = document.querySelector(".title-input-box");
-  taskTextareaTitle.focus();
 
-  // adding the list with the title when Enter key is pressed
+const listTextareaHandler = (first) => {
+  const el = document.querySelector(".list-textarea");
+  const textListAdd = document.querySelector(".text-list-add");
+  const tagCancel = document.querySelector(".cancel-tag-btn");
+  const tagAdd = document.querySelector(".add-tag-btn");
 
-  taskTextareaTitle.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      titleInputBox.remove();
-      const textValue = taskTextareaTitle.value;
-      // adding the list if the text area has a value
-      if (textValue) {
-        const newListMarkup = `
-        <div class="full-list">
-                  <ul class="list">
-                  <h2 class='list-title'>${textValue}
-                  <img class= 'edit-icon'src="${edit}"/> </h2>
+  el.focus();
+  textListAdd.scrollIntoView({ behavior: "smooth" });
 
-                  </ul>
+  // adding text area text to a new task item when pressing enter
 
-                  <p class="add-task">Add task <img class= 'edit-icon'src="${plus}"/></p>
-                </div>
-        `;
+  tagCancel.addEventListener("mousedown", (e) => {
+    e.preventDefault();
 
-        lists.insertAdjacentHTML("beforeend", newListMarkup);
-      }
-    }
+    textListAdd.remove();
+    updateSort();
   });
-  // adding the list with the title when clicked outside
 
-  taskTextareaTitle.addEventListener("blur", (e) => {
-    titleInputBox.remove();
-    const textValue = taskTextareaTitle.value;
+  tagAdd.addEventListener("click", () => {
+    const textValue = el.value;
 
-    // adding the list if the text area has a value
-
+    // only adding new task item if the textarea box containes text
     if (textValue) {
-      const newListMarkup = `
-        <div class="full-list">
-                  <ul class="list">
-                  <h2 class='list-title'>${textValue}
-                  <img class= 'edit-icon'src="${edit}"/> </h2>
-                  <div class = 'li-container'></div>
-
-                  </ul>
-
-                  <p  class="add-task"><span class='task-plus'><img class = 'add-task-img' src="${plus}"/> </span>  Add task</p>
-                </div>
-        `;
-
-      lists.insertAdjacentHTML("beforeend", newListMarkup);
+      first.insertAdjacentHTML("beforeend", gitListMarkup(textValue));
+      textListAdd.remove();
       updateStorage();
+      updateSort();
     }
+    if (!textValue) {
+      textListAdd.remove();
+    }
+
     updateStorage();
     updateSort();
   });
 
-  // animation scroll when you click the add new list button
+  el.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const textValue = el.value;
+      textListAdd.remove();
 
+      // only adding new task item if the textarea box containes text
+      if (textValue) {
+        first.insertAdjacentHTML("beforeend", gitListMarkup(textValue));
+        updateStorage();
+      }
+
+      updateSort();
+    }
+  });
+  window.addEventListener(
+    "mousedown",
+    (e) => {
+      if (e.target != tagCancel) {
+        el.addEventListener("blur", (e) => {
+          const textValue = el.value;
+          if (textValue) {
+            first.insertAdjacentHTML("beforeend", gitListMarkup(textValue));
+            textListAdd.remove();
+            updateStorage();
+            updateSort();
+          }
+          if (!textValue) {
+            textListAdd.remove();
+          }
+          updateSort();
+        });
+      }
+    },
+    { once: true }
+  );
+};
+
+// creating new lists
+newList.addEventListener("click", (e) => {
+  e.preventDefault();
+  lists.insertAdjacentHTML("beforeend", taskTitleMarkup);
+  listTextareaHandler(lists);
+
+  // animation scroll when you click the add new list button
   newListContainer.scrollIntoView({ behavior: "smooth" });
 });
 

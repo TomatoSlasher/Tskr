@@ -32,4 +32,5 @@ BUGS :
 []- list crashes when textarea for task is open and click slightly outisde of its
 []-tag dosen't colse with you click add tag on aother task
 []- task text area won't close
+[]- fix icon importing (checl forkify)
 

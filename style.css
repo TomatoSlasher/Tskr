@@ -133,8 +133,6 @@ textarea {
   align-items: center;
   font-size: 27px;
   color: var(--btn);
-  /* position: absolute;
-  bottom: 0.9rem; */
 }
 .new-list img {
   margin-right: 1rem;
@@ -146,6 +144,15 @@ textarea {
   background-color: var(--btn);
   border-radius: 100%;
   margin-right: 1rem;
+}
+.text-list-add {
+  height: 20vh;
+  width: 20vw;
+  margin-left: 1rem !important;
+}
+.list-textarea {
+  width: 100% !important;
+  height: 10vh !important;
 }
 
 .btn-text2 {
