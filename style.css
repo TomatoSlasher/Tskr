@@ -10,7 +10,7 @@
   --btn-bg: #812ba3;
   --btn--dark: #d5b9e1;
   --btn--light: #e6c7f2;
-  --tab: #f3f3f3;
+
   -full-list-bg: #eceef2;
 }
 
@@ -188,7 +188,7 @@ textarea {
 }
 .li-container {
   max-height: 55vh;
-  min-height: 8rem;
+  min-height: 9.1rem;
   overflow-y: auto;
   margin: 0rem 0.8rem;
   border-radius: 10px;
@@ -220,7 +220,7 @@ textarea {
 .lists .list .list-item {
   background-color: var(--task--bg);
   max-width: 15rem;
-  margin: 0.3rem 0rem;
+  margin: 0rem 0rem;
   margin-right: 0.5rem;
   cursor: grab;
   border-radius: 5px;
@@ -395,23 +395,23 @@ textarea {
 .li-edit-tab {
   position: absolute;
 
-  background-color: var(--tab);
+  background-color: var(--btn--light);
   border-radius: 10px;
   display: none;
   top: 2.5rem;
-  left: 5.35rem;
+  left: 4.75rem;
   border-radius: 10px;
   z-index: 1;
 }
 .li-edit-tab::after {
   content: " ";
   position: absolute;
-  right: 30px;
+  right: 20px;
   top: -10px;
   border-top: none;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  border-bottom: 10px solid var(--tab);
+  border-bottom: 10px solid var(--btn--light);
 }
 
 .tab-icon {
@@ -421,11 +421,11 @@ textarea {
   cursor: pointer;
 }
 .tab-trash:hover {
-  background-color: rgb(175, 175, 175);
+  background-color: var(--btn--dark);
   border-radius: 10px;
 }
 .tab-pen:hover {
-  background-color: rgb(175, 175, 175);
+  background-color: var(--btn--dark);
   border-radius: 10px;
 }
 .tab-icon p {

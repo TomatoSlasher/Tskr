@@ -25,6 +25,12 @@ const addTask = document.querySelectorAll(".add-task");
 const fullList = document.querySelectorAll(".full-list");
 const app = document.querySelector(".app");
 
+// get current date
+const date = new Date();
+const month = date.toLocaleString("default", { month: "short" });
+const day = date.getUTCDate();
+const currentDate = `${day} ${month}`;
+
 String.prototype.toColor = function () {
   var colors = [
     "#ff3f3f",
@@ -150,9 +156,21 @@ const textareaMarkup = `
 
 const gitTextareaMarkup = (value) => {
   const textareaValue = `
-<textarea class='task-textarea' name="task-text" id="task-text" placeholder="Enter task" >${value}</textarea>
+<div class="text-tag-add text-task-add">
+                              <textarea class='tags-text task-textarea' name="tags-text" id="task-text" placeholder="Enter Task">${value}</textarea>
+                              <div class="add-cancel-btn">
+                                <p class="add-tag-btn tag-btn">Add Task</p>
+                                <p class="cancel-tag-btn tag-btn">Cancel</p>
+                              </div>
+
+
+                            </div>
 `;
   return textareaValue;
+};
+const gitTaskMarkup = (value) => {
+  const listItemText = `<p class='list-item-text'>${value}</p>`;
+  return listItemText;
 };
 
 const gitLiMarkup = (value) => {
@@ -171,7 +189,7 @@ const gitLiMarkup = (value) => {
                          <p class='list-item-text'>${value}</p>
 
                         <div class="task-footer">
-                         <p class="created"> <img class="clock" src="${clock}" alt=""> 4 May</p>
+                         <p class="created"> <img class="clock" src="${clock}" alt="">${currentDate}</p>
                          <p class="created"> <img class="clock" src="${clock}" alt="">Due 18 May</p>
                         </div>
 
@@ -454,9 +472,13 @@ lists.addEventListener("click", (e) => {
   if (e.target.matches(".edit-icon-li")) {
     const getEl = e.path[2].nextElementSibling;
     const iconDot = e.path[1].childNodes[3];
+    const fullItem = e.path[3];
 
     if (getEl) {
       getEl.classList.toggle("display-block");
+    }
+    if (getEl.classList.contains("display-block")) {
+      fullItem.scrollIntoView({ behavior: "smooth" });
     }
     if (!getEl.classList.contains("display-block")) {
       updateSort();
@@ -507,15 +529,18 @@ lists.addEventListener("click", (e) => {
   }
 });
 
-const editTask = (element) => {
+// task name edit
+const editTask = (element, fullItem) => {
   element.style.display = "none";
   // get the text of the list item
-  const liInnerText = element.childNodes[1].childNodes[3].innerText;
+  const liInnerText = element.innerText;
 
   element.insertAdjacentHTML("afterend", gitTextareaMarkup(liInnerText));
-  element.remove();
 
   const taskTextarea = document.querySelector(".task-textarea");
+  const taskTextareaAll = document.querySelector(".text-task-add");
+  const tagCancel = document.querySelector(".cancel-tag-btn");
+  const tagAdd = document.querySelector(".add-tag-btn");
 
   taskTextarea.focus();
   // move cursor to the end of the word
@@ -524,47 +549,99 @@ const editTask = (element) => {
     taskTextarea.value.length
   );
 
-  taskTextarea.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      taskTextarea.remove();
-    }
-  });
-  taskTextarea.addEventListener("blur", (e) => {
-    e.stopImmediatePropagation();
+  // adding text area text to a new task item when pressing enter
 
+  tagCancel.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    taskTextareaAll.remove();
+    updateSort();
+    element.style.display = "block";
+  });
+
+  tagAdd.addEventListener("mousedown", () => {
     const textValue = taskTextarea.value;
 
     // only adding new task item if the textarea box containes text
     if (textValue) {
-      taskTextarea.insertAdjacentHTML("afterend", gitLiMarkup(textValue));
-      taskTextarea.remove();
-      updateStorage();
+      taskTextareaAll.insertAdjacentHTML("afterend", gitTaskMarkup(textValue));
+      element.remove();
+      taskTextareaAll.remove();
     }
     if (!textValue) {
-      taskTextarea.remove();
-      updateStorage();
+      fullItem.remove();
     }
-
-    updateSort();
+    updateStorage();
   });
+
+  taskTextarea.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const textValue = taskTextarea.value;
+
+      // only adding new task item if the textarea box containes text
+      if (textValue) {
+        taskTextareaAll.insertAdjacentHTML(
+          "afterend",
+          gitTaskMarkup(textValue)
+        );
+        element.remove();
+        taskTextareaAll.remove();
+      }
+      if (!textValue) {
+        fullItem.remove();
+      }
+      updateStorage();
+      updateSort();
+    }
+  });
+  window.addEventListener(
+    "mousedown",
+    (e) => {
+      if (e.target != tagCancel) {
+        taskTextarea.addEventListener("blur", (e) => {
+          const textValue = taskTextarea.value;
+
+          // only adding new task item if the textarea box containes text
+          if (textValue) {
+            taskTextareaAll.insertAdjacentHTML(
+              "afterend",
+              gitTaskMarkup(textValue)
+            );
+            element.remove();
+            taskTextareaAll.remove();
+          }
+          if (!textValue) {
+            fullItem.remove();
+          }
+          updateStorage();
+        });
+      }
+    },
+    { once: true }
+  );
 };
 
 // logic for editing task items when clicking edit task button in the tabs menu
 lists.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.matches(".tab-pen")) {
-    const tab = e.path[2];
-    editTask(tab);
+    const tab = e.path[2].childNodes[1].childNodes[1].nextElementSibling;
+    const fullItem = e.path[2];
+
+    editTask(tab, fullItem);
   }
 
   if (e.target.matches(".edit-pen-li")) {
-    const tab = e.path[3];
-    editTask(tab);
+    const tab = e.path[3].childNodes[1].childNodes[1].nextElementSibling;
+    const fullItem = e.path[3];
+
+    editTask(tab, fullItem);
   }
 
   if (e.target.matches(".tab-text-pen")) {
-    const tab = e.path[3];
-    editTask(tab);
+    const tab = e.path[3].childNodes[1].childNodes[1].nextElementSibling;
+    const fullItem = e.path[3];
+
+    editTask(tab, fullItem);
   }
 });
 
@@ -581,7 +658,7 @@ const textareaHandler = (first) => {
 
   tagCancel.addEventListener("mousedown", (e) => {
     e.preventDefault();
-    console.log("kgk");
+
     textTaskAdd.remove();
     updateSort();
   });
