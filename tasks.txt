@@ -7,30 +7,30 @@ FEATURES :
 []- task item gave diffrent colors
 [x]- draggable list
 []- touch event sorting
-[]-list tab
+[]- list tab
 []- mark as completed button
 []- task deadline
-[]- mark tasks and be able to sort them
-[]- task tags
+[]- tags sorting
+[x]- task tags
 []- progress bar shows what features are completed
 []- light and dark mode
 []- task counter in lists
 []- creation date in task card
-[]- cursoer changing when dragging
-[]- text area btn
+[x]- cursoer changing when dragging
+[x]- text area btn
 []- update sortable list btn when sort list becomes sortable
 
 BUGS :
-[]-remove sortList
+[x]-remove sortList
 [x]- fix multiple tabs open when clicking edit icon
 []- li tab positioning
 [x]- fix nested li when editing task
 [x]- multiple add tasks e.prevent
-[]- li scroll bar stops blur
+[x]- li scroll bar stops blur
 [x]- sorting item doesn't work sometimes (pointer-events keep showing)
 [x]- list breaks when click add task twice
 []- list crashes when textarea for task is open and click slightly outisde of its
 []-tag dosen't colse with you click add tag on aother task
-[]- task text area won't close
-[]- fix icon importing (checl forkify)
+[x]- task text area won't close
+[]- fix icon importing (check forkify)
 

@@ -13,7 +13,6 @@ import clock from "url:./svg/clock-regular.svg";
 import times from "url:./svg/times-solid.svg";
 
 //imported html element
-
 const lists = document.querySelector(".list-container");
 const list = document.querySelectorAll(".list");
 const newList = document.querySelector(".new-list");
@@ -127,9 +126,9 @@ const updateSort = function () {
 
 const taskTitleMarkup = `
   <div class="text-tag-add text-list-add">
-                              <textarea class='tags-text list-textarea' name="tags-text" id="task-text" placeholder="Enter Task"></textarea>
+                              <textarea class='tags-text list-textarea' name="tags-text" id="task-text" placeholder="Enter List Name"></textarea>
                               <div class="add-cancel-btn">
-                                <p class="add-tag-btn tag-btn">Add Task</p>
+                                <p class="add-tag-btn tag-btn">Add List</p>
                                 <p class="cancel-tag-btn tag-btn">Cancel</p>
                               </div>
 

@@ -176,11 +176,9 @@ textarea {
 .lists .list {
   width: 20vw;
 
-  /* margin: 0rem 1rem; */
-
   height: initial;
 
-  position: relative;
+  /* position: relative; */
 }
 
 .list-title {
@@ -198,8 +196,9 @@ textarea {
 }
 .full-item {
   margin-bottom: 1rem;
-  z-index: 1;
+
   border-radius: 5px;
+  position: relative;
 }
 
 .li-container::-webkit-scrollbar-track {
@@ -237,7 +236,6 @@ textarea {
   background-color: var(--btn--light);
   padding: 0.75rem 0rem !important;
   margin-bottom: 0.5rem;
-  /* padding: 0.5rem 0rem; */
   border-radius: 5px;
   color: var(--btn) !important;
 }
@@ -396,15 +394,26 @@ textarea {
 
 .li-edit-tab {
   position: absolute;
-  margin-left: 17rem;
-  /* bottom: -2.5rem; */
+
   background-color: var(--tab);
   border-radius: 10px;
   display: none;
-  bottom: 10%;
+  top: 2.5rem;
+  left: 5.35rem;
   border-radius: 10px;
-  z-index: 2;
+  z-index: 1;
 }
+.li-edit-tab::after {
+  content: " ";
+  position: absolute;
+  right: 30px;
+  top: -10px;
+  border-top: none;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid var(--tab);
+}
+
 .tab-icon {
   display: flex;
   width: 10rem;
@@ -474,7 +483,9 @@ textarea {
   padding: 0.7rem;
   resize: none;
 }
-
+.draggable-mirror {
+  z-index: 10;
+}
 .draggable-mirror .list-item {
   transform: rotate(10deg) !important;
 }
