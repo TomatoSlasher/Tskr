@@ -420,6 +420,9 @@ lists.addEventListener("click", (e) => {
     if (getEl) {
       getEl.classList.toggle("display-block");
     }
+    if (!getEl.classList.contains("display-block")) {
+      updateSort();
+    }
   }
 });
 
