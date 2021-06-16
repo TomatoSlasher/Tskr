@@ -296,21 +296,24 @@ const tagTextHandler = (el) => {
       updateSort();
     }
   });
-
-  tagTextarea.addEventListener("blur", (e) => {
-    window.addEventListener("click", () => {
+  window.addEventListener(
+    "mousedown",
+    (e) => {
       if (e.target != tagCancel) {
-        const tagTextValue = tagTextarea.value.toLowerCase();
-        if (tagTextValue) {
-          insertTag(tagTextValue, tagTextareaAll);
-        }
-        if (!tagTextValue) {
-          tagTextareaAll.remove();
-        }
+        tagTextarea.addEventListener("blur", (e) => {
+          const tagTextValue = tagTextarea.value.toLowerCase();
+          if (tagTextValue) {
+            insertTag(tagTextValue, tagTextareaAll);
+          }
+          if (!tagTextValue) {
+            tagTextareaAll.remove();
+          }
+          updateSort();
+        });
       }
-    });
-    updateSort();
-  });
+    },
+    { once: true }
+  );
 };
 
 lists.addEventListener("click", (e) => {
