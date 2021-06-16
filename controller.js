@@ -534,6 +534,8 @@ const textareaHandler = (first) => {
   const tagAdd = document.querySelector(".add-tag-btn");
 
   el.focus();
+  textTaskAdd.scrollIntoView({ behavior: "smooth" });
+
   // adding text area text to a new task item when pressing enter
 
   tagCancel.addEventListener("click", () => {
@@ -598,7 +600,6 @@ lists.addEventListener("click", (e) => {
     const firstChild = getEl.childNodes[3];
     //entering teaxtarea box when click the add task button
     firstChild.insertAdjacentHTML("beforeend", textareaMarkup);
-
     // const taskTextarea = document.querySelector(".task-textarea");
     textareaHandler(firstChild);
   }
