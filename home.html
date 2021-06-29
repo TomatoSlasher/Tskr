@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Tskr</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sen&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script
       src="https://kit.fontawesome.com/d5013eb6e8.js"
@@ -15,22 +18,35 @@
   </head>
   <body>
     <div class="header-wrapper">
-
       <header class="header">
-      <h2 contenteditable="true" class="document-name">Add document name</h2>
-      <div class="right-header">
-        <p class="list-clear">
-          <span class="clear-container"
-            ><img src="./svg/trash-alt-solid.svg" alt="Trash" />
-        </p>
-
-
+        <h2 contenteditable="true" class="document-name">Add document name</h2>
+        <div class="right-header">
+          <img
+            src="./svg/sort-amount-down-alt-solid.svg"
+            alt=""
+            class="sort-btn header-btn"
+          />
+          <img
+            src="./svg/trash-alt-solid.svg"
+            alt="Trash"
+            class="trash-btn header-btn"
+          />
+        </div>
+      </header>
+    </div>
+    <div class="sort-tab">
+      <h2>Sort by tag</h2>
+      <div class="sort-item-container">
+        <!-- <p class="sort-item">WebSite</p>
+        <p class="sort-item">Design</p>
+        <p class="sort-item">Paymnets</p> -->
       </div>
-    </header>
     </div>
 
     <div class="app">
-
+      <h2 class="sorting-by">
+        Sorting By (Design) <img src="./svg/times-solid.svg" alt="" />
+      </h2>
       <div class="lists">
         <div class="list-container">
           <!-- <div class="full-list">
@@ -94,12 +110,14 @@
                 </div> -->
         </div>
         <div class="newlist-container">
-      <div class = 'new-list'>
-        <p><img src="./svg/plus-solid.svg" alt=""> <span class="new-list-txt">Add list</span> </p>
+          <div class="new-list">
+            <p>
+              <img src="./svg/plus-solid.svg" alt="" />
+              <span class="new-list-txt">Add list</span>
+            </p>
+          </div>
+        </div>
       </div>
-</div>
-      </div>
-
     </div>
 
     <script src="./controller.js" type="module"></script>

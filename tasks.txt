@@ -19,18 +19,19 @@ FEATURES :
 [x]- cursoer changing when dragging
 [x]- text area btn
 []- update sortable list btn when sort list becomes sortable
+[]- new tags bg color palette
 
 BUGS :
 [x]-remove sortList
 [x]- fix multiple tabs open when clicking edit icon
-[]- li tab positioning
+[x]- li tab positioning
 [x]- fix nested li when editing task
 [x]- multiple add tasks e.prevent
 [x]- li scroll bar stops blur
 [x]- sorting item doesn't work sometimes (pointer-events keep showing)
 [x]- list breaks when click add task twice
-[]- list crashes when textarea for task is open and click slightly outisde of its
+[x]- list crashes when textarea for task is open and click slightly outisde of its
 []-tag dosen't colse with you click add tag on aother task
 [x]- task text area won't close
-[]- fix icon importing (check forkify)
+[del]- fix icon importing (check forkify)
 

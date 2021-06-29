@@ -20,10 +20,13 @@ const newListContainer = document.querySelector(".newlist-container");
 const listContainer = document.querySelector(".list-container");
 const listItem = document.querySelectorAll(".list-item");
 const listTitle = document.querySelectorAll(".list-title");
-const listClear = document.querySelector(".list-clear");
+const listClear = document.querySelector(".trash-btn");
 const addTask = document.querySelectorAll(".add-task");
 const fullList = document.querySelectorAll(".full-list");
 const app = document.querySelector(".app");
+const sortBtn = document.querySelector(".sort-btn");
+const sortTab = document.querySelector(".sort-tab");
+const sortItemContainer = document.querySelector(".sort-item-container");
 
 // get current date
 const date = new Date();
@@ -748,3 +751,51 @@ listClear.addEventListener("click", () => {
   window.localStorage.clear();
   lists.innerHTML = "";
 });
+
+sortBtn.addEventListener("click", () => {
+  sortTab.classList.toggle("display-block");
+});
+
+const sortTabHandler = () => {
+  const tags = document.querySelectorAll(".tags-all");
+  const tagsInnerText = Array.from(tags, (x) => x.innerText);
+  const tagsUnique = [...new Set(tagsInnerText)];
+  const tagsTabMarkup = tagsUnique
+    .map((x) => `<p class="sort-item">${x}</p>`)
+    .join("");
+  sortItemContainer.insertAdjacentHTML("afterbegin", tagsTabMarkup);
+};
+sortTabHandler();
+
+const ChangeSortItemsBG = () => {
+  const sortItem = document.querySelectorAll(".sort-item");
+  sortItem.forEach((x) => {
+    const color = `${x.innerText}`.toColor();
+    x.style.backgroundColor = `${color}`;
+  });
+};
+
+const sortByTag = (value) => {
+  const tagsAll = document.querySelectorAll(".tags-all");
+  const fullItem = document.querySelectorAll(".full-item");
+  fullItem.forEach((x) => {
+    x.style.display = "none";
+  });
+
+  [...tagsAll].map((x) => {
+    if (x.innerText == value) {
+      console.log(x);
+      x.closest(".full-item").style.display = "block";
+    }
+  });
+};
+
+ChangeSortItemsBG();
+sortTab.addEventListener("click", (e) => {
+  if (e.target.matches(".sort-item")) {
+    const sortTagText = e.path[0].innerText;
+    sortByTag(sortTagText);
+  }
+});
+
+// const cancelSort = {};
