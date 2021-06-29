@@ -522,22 +522,28 @@ lists.addEventListener("click", (e) => {
     const liSibling = e.path[2];
     liSibling.remove();
     updateSort();
-
     updateStorage();
+    restoreTags();
+    removeSortItem();
+    sortTabHandler();
   }
   if (e.target.matches(".edit-trash-li")) {
     const liSibling = e.path[3];
     liSibling.remove();
     updateSort();
-
     updateStorage();
+    restoreTags();
+    removeSortItem();
+    sortTabHandler();
   }
   if (e.target.matches(".tab-text-trash")) {
     const liSibling = e.path[3];
     liSibling.remove();
     updateSort();
-
     updateStorage();
+    restoreTags();
+    removeSortItem();
+    sortTabHandler();
   }
 });
 
@@ -691,6 +697,9 @@ const textareaHandler = (first) => {
 
     updateStorage();
     updateSort();
+    restoreTags();
+    removeSortItem();
+    sortTabHandler();
   });
 
   el.addEventListener("keypress", (e) => {
@@ -705,6 +714,9 @@ const textareaHandler = (first) => {
       }
 
       updateSort();
+      restoreTags();
+      removeSortItem();
+      sortTabHandler();
     }
   });
   window.addEventListener(
@@ -723,6 +735,9 @@ const textareaHandler = (first) => {
             textTaskAdd.remove();
           }
           updateSort();
+          restoreTags();
+          removeSortItem();
+          sortTabHandler();
         });
       }
     },
@@ -766,7 +781,9 @@ const restoreTags = () => {
   const fullItem = document.querySelectorAll(".full-item");
   fullItem.forEach((x) => (x.style.display = "block"));
   const sortingByCancel = document.querySelector(".sorting-by");
-  sortingByCancel.remove();
+  if (sortingByCancel) {
+    sortingByCancel.remove();
+  }
 };
 
 sortBtn.addEventListener("click", () => {
@@ -817,10 +834,15 @@ const sortingByTextMarkup = (value) => {
 sortTab.addEventListener("click", (e) => {
   if (e.target.matches(".sort-item")) {
     const sortTagText = e.path[0].innerText;
+    const sortingBy = document.querySelector(".sorting-by");
+    if (sortingBy) {
+      sortingBy.remove();
+    }
     sortByTag(sortTagText);
     app.insertAdjacentHTML("afterbegin", sortingByTextMarkup(sortTagText));
   }
 });
+console.log("kl");
 
 app.addEventListener("click", (e) => {
   if (e.target.matches(".sorting-by-cancel")) {
