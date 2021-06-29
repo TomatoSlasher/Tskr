@@ -774,6 +774,7 @@ const ChangeSortItemsBG = () => {
     x.style.backgroundColor = `${color}`;
   });
 };
+ChangeSortItemsBG();
 
 const sortByTag = (value) => {
   const tagsAll = document.querySelectorAll(".tags-all");
@@ -789,13 +790,28 @@ const sortByTag = (value) => {
     }
   });
 };
+const restoreTags = () => {
+  const fullItem = document.querySelectorAll(".full-item");
+  fullItem.forEach((x) => (x.style.display = "block"));
+  const sortingByCancel = document.querySelector(".sorting-by");
+  sortingByCancel.remove();
+};
 
-ChangeSortItemsBG();
+const sortingByTextMarkup = (value) => {
+  return ` <h2 class="sorting-by">
+        Sorting By (${value}) <img class ='sorting-by-cancel' src="${times}" alt="" />
+      </h2>`;
+};
+
 sortTab.addEventListener("click", (e) => {
   if (e.target.matches(".sort-item")) {
     const sortTagText = e.path[0].innerText;
     sortByTag(sortTagText);
+    app.insertAdjacentHTML("afterbegin", sortingByTextMarkup(sortTagText));
   }
 });
-
-// const cancelSort = {};
+app.addEventListener("click", (e) => {
+  if (e.target.matches(".sorting-by-cancel")) {
+    restoreTags();
+  }
+});
