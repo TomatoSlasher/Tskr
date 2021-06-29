@@ -334,7 +334,11 @@ lists.addEventListener("click", (e) => {
   if (e.target.matches(".tag-delete")) {
     const tagEl = e.path[1];
     tagEl.remove();
+    restoreTags();
+    removeSortItem();
+    sortTabHandler();
     updateStorage();
+    updateSort();
   }
 });
 
@@ -521,29 +525,29 @@ lists.addEventListener("click", (e) => {
   if (e.target.matches(".tab-trash")) {
     const liSibling = e.path[2];
     liSibling.remove();
-    updateSort();
-    updateStorage();
     restoreTags();
     removeSortItem();
     sortTabHandler();
+    updateSort();
+    updateStorage();
   }
   if (e.target.matches(".edit-trash-li")) {
     const liSibling = e.path[3];
     liSibling.remove();
-    updateSort();
-    updateStorage();
     restoreTags();
     removeSortItem();
     sortTabHandler();
+    updateSort();
+    updateStorage();
   }
   if (e.target.matches(".tab-text-trash")) {
     const liSibling = e.path[3];
     liSibling.remove();
-    updateSort();
-    updateStorage();
     restoreTags();
     removeSortItem();
     sortTabHandler();
+    updateSort();
+    updateStorage();
   }
 });
 
@@ -694,12 +698,11 @@ const textareaHandler = (first) => {
     if (!textValue) {
       textTaskAdd.remove();
     }
-
-    updateStorage();
-    updateSort();
     restoreTags();
     removeSortItem();
     sortTabHandler();
+    updateStorage();
+    updateSort();
   });
 
   el.addEventListener("keypress", (e) => {
@@ -712,11 +715,11 @@ const textareaHandler = (first) => {
         first.insertAdjacentHTML("beforeend", gitLiMarkup(textValue));
         updateStorage();
       }
-
-      updateSort();
       restoreTags();
       removeSortItem();
       sortTabHandler();
+      updateStorage();
+      updateSort();
     }
   });
   window.addEventListener(
@@ -734,17 +737,18 @@ const textareaHandler = (first) => {
           if (!textValue) {
             textTaskAdd.remove();
           }
-          updateSort();
           restoreTags();
           removeSortItem();
           sortTabHandler();
+          updateStorage();
+          updateSort();
         });
       }
     },
     { once: true }
   );
 };
-
+console.log("lo");
 // adding new task
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".add-task")) {
@@ -847,5 +851,9 @@ console.log("kl");
 app.addEventListener("click", (e) => {
   if (e.target.matches(".sorting-by-cancel")) {
     restoreTags();
+    updateStorage();
   }
 });
+restoreTags();
+removeSortItem();
+sortTabHandler();
