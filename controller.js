@@ -285,6 +285,8 @@ const tagTextHandler = (el) => {
       tagTextareaAll.remove();
     }
     updateSort();
+    removeSortItem();
+    sortTabHandler();
   });
 
   tagTextarea.addEventListener("keypress", (e) => {
@@ -297,6 +299,8 @@ const tagTextHandler = (el) => {
         tagTextareaAll.remove();
       }
       updateSort();
+      removeSortItem();
+      sortTabHandler();
     }
   });
   window.addEventListener(
@@ -312,6 +316,8 @@ const tagTextHandler = (el) => {
             tagTextareaAll.remove();
           }
           updateSort();
+          removeSortItem();
+          sortTabHandler();
         });
       }
     },
@@ -751,6 +757,17 @@ listClear.addEventListener("click", () => {
   window.localStorage.clear();
   lists.innerHTML = "";
 });
+const removeSortItem = () => {
+  const sortItem = document.querySelectorAll(".sort-item");
+  sortItem.forEach((x) => x.remove());
+};
+
+const restoreTags = () => {
+  const fullItem = document.querySelectorAll(".full-item");
+  fullItem.forEach((x) => (x.style.display = "block"));
+  const sortingByCancel = document.querySelector(".sorting-by");
+  sortingByCancel.remove();
+};
 
 sortBtn.addEventListener("click", () => {
   sortTab.classList.toggle("display-block");
@@ -760,49 +777,43 @@ const sortTabHandler = () => {
   const tags = document.querySelectorAll(".tags-all");
   const tagsInnerText = Array.from(tags, (x) => x.innerText);
   const tagsUnique = [...new Set(tagsInnerText)];
+  console.log(tagsUnique);
   const tagsTabMarkup = tagsUnique
     .map((x) => `<p class="sort-item">${x}</p>`)
     .join("");
   sortItemContainer.insertAdjacentHTML("afterbegin", tagsTabMarkup);
-};
-sortTabHandler();
-
-const ChangeSortItemsBG = () => {
   const sortItem = document.querySelectorAll(".sort-item");
   sortItem.forEach((x) => {
     const color = `${x.innerText}`.toColor();
     x.style.backgroundColor = `${color}`;
   });
 };
-ChangeSortItemsBG();
+sortTabHandler();
 
+// hidding list item that doesn't contain the value string
 const sortByTag = (value) => {
   const tagsAll = document.querySelectorAll(".tags-all");
   const fullItem = document.querySelectorAll(".full-item");
+  // hide all list items
   fullItem.forEach((x) => {
     x.style.display = "none";
   });
-
+  // unhidding list item if they the match the value
   [...tagsAll].map((x) => {
     if (x.innerText == value) {
-      console.log(x);
       x.closest(".full-item").style.display = "block";
     }
   });
 };
-const restoreTags = () => {
-  const fullItem = document.querySelectorAll(".full-item");
-  fullItem.forEach((x) => (x.style.display = "block"));
-  const sortingByCancel = document.querySelector(".sorting-by");
-  sortingByCancel.remove();
-};
 
+//add sorting by text with the sorted by tag
 const sortingByTextMarkup = (value) => {
   return ` <h2 class="sorting-by">
         Sorting By (${value}) <img class ='sorting-by-cancel' src="${times}" alt="" />
       </h2>`;
 };
 
+// sorting and adding
 sortTab.addEventListener("click", (e) => {
   if (e.target.matches(".sort-item")) {
     const sortTagText = e.path[0].innerText;
@@ -810,6 +821,7 @@ sortTab.addEventListener("click", (e) => {
     app.insertAdjacentHTML("afterbegin", sortingByTextMarkup(sortTagText));
   }
 });
+
 app.addEventListener("click", (e) => {
   if (e.target.matches(".sorting-by-cancel")) {
     restoreTags();

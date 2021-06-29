@@ -142,6 +142,7 @@ textarea {
   width: 2rem;
   background-color: var(--btn);
   padding: 0.5rem;
+  margin-left: 0.1rem;
   border-radius: 100%;
   cursor: pointer;
 }
