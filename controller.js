@@ -219,7 +219,7 @@ const gitListMarkup = (value) => {
         <div class="full-list">
                   <ul class="list">
                   <h2 class='list-title'>${value}
-                  <img class= 'edit-icon'src="${edit}"/> </h2>
+                  <img class= 'edit-icon'src="${dots}"/> </h2>
                   <div class = 'li-container'></div>
 
                   </ul>
@@ -881,11 +881,3 @@ app.addEventListener("click", (e) => {
 restoreTags();
 removeSortItem();
 sortTabHandler();
-
-// const emptySortTab = () => {
-//   const tagsAll = document.querySelectorAll(".tags-all");
-//   if (tagsAll) {
-//     // const
-//   }
-// };
-// emptySortTab();
