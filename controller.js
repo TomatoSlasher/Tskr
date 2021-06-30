@@ -11,6 +11,7 @@ import trash from "url:./svg/trash-alt-solid.svg";
 import dots from "url:./svg/ellipsis-h-solid.svg";
 import clock from "url:./svg/clock-regular.svg";
 import times from "url:./svg/times-solid.svg";
+import check from "url:./svg/check-solid.svg";
 
 //imported html element
 const lists = document.querySelector(".list-container");
@@ -181,6 +182,15 @@ const gitLiMarkup = (value) => {
            <div class='full-item'>
 
                       <li  class="list-item">
+                      <div class="completed">
+                      <img
+                        class="check-icon"
+                        src="${check}"
+                        alt=""
+                      />
+                      <p>Completed</p>
+                    </div>
+
                         <div class="task-header">
                            <div class="tags">
                            <p class="add-tag tags-el">Add Tag +</p>
@@ -195,6 +205,7 @@ const gitLiMarkup = (value) => {
                          <p class="created"> <img class="clock" src="${clock}" alt="">${currentDate}</p>
                          <p class="created"> <img class="clock" src="${clock}" alt="">Due 18 May</p>
                         </div>
+
 
 
                       </li>
@@ -487,7 +498,8 @@ window.addEventListener(
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".edit-icon-li")) {
     const getEl = e.path[2].nextElementSibling;
-    const iconDot = e.path[1].childNodes[3];
+    console.log(getEl);
+
     const fullItem = e.path[3];
 
     if (getEl) {
@@ -509,7 +521,8 @@ window.addEventListener("click", (e) => {
 
   tabTrash.forEach((el) => {
     if (el) {
-      const iconLi = el.previousElementSibling.childNodes[1].childNodes[3];
+      const iconLi = el.previousElementSibling.childNodes[3].childNodes[3];
+
       if (el.classList.contains("display-block")) {
         if (e.target != el && e.target != iconLi) {
           el.classList.remove("display-block");
@@ -646,21 +659,25 @@ const editTask = (element, fullItem) => {
 lists.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.matches(".tab-pen")) {
-    const tab = e.path[2].childNodes[1].childNodes[1].nextElementSibling;
+    const tab = e.path[2].childNodes[1].childNodes[3].nextElementSibling;
+
     const fullItem = e.path[2];
 
     editTask(tab, fullItem);
   }
 
   if (e.target.matches(".edit-pen-li")) {
-    const tab = e.path[3].childNodes[1].childNodes[1].nextElementSibling;
+    const tab = e.path[3].childNodes[1].childNodes[5];
+
     const fullItem = e.path[3];
 
     editTask(tab, fullItem);
   }
 
   if (e.target.matches(".tab-text-pen")) {
-    const tab = e.path[3].childNodes[1].childNodes[1].nextElementSibling;
+    const tab = e.path[3].childNodes[1].childNodes[3].nextElementSibling;
+    console.log(tab);
+
     const fullItem = e.path[3];
 
     editTask(tab, fullItem);
