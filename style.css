@@ -99,6 +99,7 @@ textarea {
   top: 5.75rem;
   z-index: 11;
   display: none;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 .sort-tab::after {
   content: " ";
@@ -111,7 +112,19 @@ textarea {
   border-bottom: 10px solid var(--tab--bg);
 }
 .sort-tab h2 {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
+}
+.sort-h2 {
+  display: flex;
+  justify-content: space-between;
+}
+.sort-h2 img {
+  height: 2rem;
+  background-color: var(--main--txt);
+  border-radius: 100%;
+  padding: 0.5rem;
+  width: 2rem;
+  cursor: pointer;
 }
 .sort-item-container {
   margin-left: 0.75rem;
@@ -125,6 +138,12 @@ textarea {
   border-radius: 20px;
   cursor: pointer;
   margin: 0.25rem !important;
+}
+.no-tags {
+  font-size: 20px;
+  text-align: center;
+  padding: 1rem;
+  margin-right: 1rem !important;
 }
 .sorting-by {
   display: flex;
@@ -430,13 +449,14 @@ textarea {
 .li-edit-tab {
   position: absolute;
 
-  background-color: var(--btn--light);
+  background-color: var(--tab--bg);
   border-radius: 10px;
   display: none;
   top: 2.5rem;
   left: 4.9rem;
   border-radius: 10px;
   z-index: 1;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 .li-edit-tab::after {
   content: " ";
@@ -446,7 +466,7 @@ textarea {
   border-top: none;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  border-bottom: 10px solid var(--btn--light);
+  border-bottom: 10px solid var(--tab--bg);
 }
 
 .tab-icon {
@@ -456,11 +476,11 @@ textarea {
   cursor: pointer;
 }
 .tab-trash:hover {
-  background-color: var(--btn--dark);
+  background-color: var(--dark--hover);
   border-radius: 10px;
 }
 .tab-pen:hover {
-  background-color: var(--btn--dark);
+  background-color: var(--dark--hover);
   border-radius: 10px;
 }
 .tab-icon p {

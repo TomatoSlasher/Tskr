@@ -748,7 +748,7 @@ const textareaHandler = (first) => {
     { once: true }
   );
 };
-console.log("lo");
+
 // adding new task
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".add-task")) {
@@ -782,23 +782,46 @@ const removeSortItem = () => {
 };
 
 const restoreTags = () => {
+  const liContainer = document.querySelectorAll(".li-container");
   const fullItem = document.querySelectorAll(".full-item");
-  fullItem.forEach((x) => (x.style.display = "block"));
   const sortingByCancel = document.querySelector(".sorting-by");
+  fullItem.forEach((x) => (x.style.display = "block"));
   if (sortingByCancel) {
     sortingByCancel.remove();
   }
+  liContainer.forEach((x) => (x.style.maxHeight = "55vh"));
 };
 
-sortBtn.addEventListener("click", () => {
+sortBtn.addEventListener("click", (e) => {
   sortTab.classList.toggle("display-block");
+  if (e.currentTarget == sortBtn) {
+    console.log("sort");
+  }
+});
+window.addEventListener("click", (e) => {
+  if (
+    !e.target.matches(".sort-h2") &&
+    !e.target.matches(".sort-item-container") &&
+    e.target != sortBtn &&
+    e.target != sortTab
+  ) {
+    sortTab.classList.remove("display-block");
+  }
 });
 
 const sortTabHandler = () => {
+  const noTags = document.querySelector(".no-tags");
   const tags = document.querySelectorAll(".tags-all");
   const tagsInnerText = Array.from(tags, (x) => x.innerText);
   const tagsUnique = [...new Set(tagsInnerText)];
-  console.log(tagsUnique);
+  console.log(!tagsUnique);
+
+  if (tagsUnique.length > 0) {
+    noTags.style.display = "none";
+  }
+  if (tagsUnique.length === 0) {
+    noTags.style.display = "block";
+  }
   const tagsTabMarkup = tagsUnique
     .map((x) => `<p class="sort-item">${x}</p>`)
     .join("");
@@ -837,6 +860,7 @@ const sortingByTextMarkup = (value) => {
 // sorting and adding
 sortTab.addEventListener("click", (e) => {
   if (e.target.matches(".sort-item")) {
+    const liContainer = document.querySelectorAll(".li-container");
     const sortTagText = e.path[0].innerText;
     const sortingBy = document.querySelector(".sorting-by");
     if (sortingBy) {
@@ -844,9 +868,9 @@ sortTab.addEventListener("click", (e) => {
     }
     sortByTag(sortTagText);
     app.insertAdjacentHTML("afterbegin", sortingByTextMarkup(sortTagText));
+    liContainer.forEach((x) => (x.style.maxHeight = "43vh"));
   }
 });
-console.log("kl");
 
 app.addEventListener("click", (e) => {
   if (e.target.matches(".sorting-by-cancel")) {
@@ -857,3 +881,11 @@ app.addEventListener("click", (e) => {
 restoreTags();
 removeSortItem();
 sortTabHandler();
+
+// const emptySortTab = () => {
+//   const tagsAll = document.querySelectorAll(".tags-all");
+//   if (tagsAll) {
+//     // const
+//   }
+// };
+// emptySortTab();

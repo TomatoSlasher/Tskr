@@ -20,6 +20,7 @@ FEATURES :
 [x]- text area btn
 []- update sortable list btn when sort list becomes sortable
 []- new tags bg color palette
+[]- no tags msg on sort tab
 
 BUGS :
 [x]-remove sortList
