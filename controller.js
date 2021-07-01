@@ -12,6 +12,8 @@ import dots from "url:./svg/ellipsis-h-solid.svg";
 import clock from "url:./svg/clock-regular.svg";
 import times from "url:./svg/times-solid.svg";
 import check from "url:./svg/check-solid.svg";
+import checkCircle from "url:./svg/check-circle-solid.svg";
+import unCheckCircle from "url:./svg/times-circle-solid.svg";
 
 //imported html element
 const lists = document.querySelector(".list-container");
@@ -182,6 +184,7 @@ const gitLiMarkup = (value) => {
            <div class='full-item'>
 
                       <li  class="list-item">
+                      <div class='completed-container'>
                       <div class="completed">
                       <img
                         class="check-icon"
@@ -189,6 +192,7 @@ const gitLiMarkup = (value) => {
                         alt=""
                       />
                       <p>Completed</p>
+                      </div>
                     </div>
 
                         <div class="task-header">
@@ -219,6 +223,19 @@ const gitLiMarkup = (value) => {
                           <div class='tab-icon tab-trash'>
                             <img class= 'edit-trash-li tab-img' src="${trash}"/> <p class='tab-text-trash'> Remove task </p>
                           </div>
+
+                          <div class='check-container'>
+                            <div class='tab-icon tab-check'>
+                              <img class= 'edit-check-li tab-img' src="${checkCircle}"/> <p class='tab-text-check'> Mark as complete </p>
+                            </div>
+                          </div>
+
+                          <div class='uncheck-container'>
+                            <div class='tab-icon tab-uncheck'>
+                              <img class= 'edit-uncheck-li tab-img' src="${unCheckCircle}"/> <p class='tab-text-uncheck'> Unmark as complete </p>
+                            </div>
+                          </div>
+
 
                       </div>
                     </div>
@@ -559,6 +576,71 @@ lists.addEventListener("click", (e) => {
     removeSortItem();
     sortTabHandler();
     updateSort();
+    updateStorage();
+  }
+});
+// adding complete element and switch edit tab to unmark as complete
+
+const checkTaskHandler = (complete, tabUncheck, tabCheck) => {
+  complete.style.display = "block";
+  tabUncheck.style.display = "block";
+  tabCheck.style.display = "none";
+};
+
+// mark tasks as complete and removing the check tab item
+lists.addEventListener("click", (e) => {
+  if (e.target.matches(".tab-check")) {
+    const completeEl = e.path[3].childNodes[1].childNodes[1];
+    const tabUncheckEl = e.path[1].nextElementSibling;
+    const tabCheckEl = e.path[1];
+    console.log(tabCheckEl);
+    checkTaskHandler(completeEl, tabUncheckEl, tabCheckEl);
+    updateStorage();
+  }
+  if (e.target.matches(".edit-check-li")) {
+    const completeEl = e.path[4].childNodes[1].childNodes[1];
+    const tabUncheckEl = e.path[2].nextElementSibling;
+    const tabCheckEl = e.path[2];
+    // console.log(tabCheckEl);
+    checkTaskHandler(completeEl, tabUncheckEl, tabCheckEl);
+    updateStorage();
+  }
+  if (e.target.matches(".tab-text-check")) {
+    const completeEl = e.path[4].childNodes[1].childNodes[1];
+    const tabUncheckEl = e.path[2].nextElementSibling;
+    const tabCheckEl = e.path[2];
+    checkTaskHandler(completeEl, tabUncheckEl, tabCheckEl);
+    updateStorage();
+  }
+});
+
+const uncheckTaskHandler = (complete, tabUncheck, tabCheck) => {
+  complete.style.display = "none";
+  tabUncheck.style.display = "none";
+  tabCheck.style.display = "block";
+};
+lists.addEventListener("click", (e) => {
+  if (e.target.matches(".tab-uncheck")) {
+    const completeEl = e.path[3].childNodes[1].childNodes[1];
+    const tabUncheckEl = e.path[1];
+    const tabCheckEl = e.path[1].previousElementSibling;
+    uncheckTaskHandler(completeEl, tabUncheckEl, tabCheckEl);
+    updateStorage();
+  }
+  if (e.target.matches(".edit-uncheck-li")) {
+    const completeEl = e.path[4].childNodes[1].childNodes[1];
+    const tabUncheckEl = e.path[2];
+    const tabCheckEl = e.path[2].previousElementSibling;
+    console.log(tabCheckEl);
+
+    uncheckTaskHandler(completeEl, tabUncheckEl, tabCheckEl);
+    updateStorage();
+  }
+  if (e.target.matches(".tab-text-uncheck")) {
+    const completeEl = e.path[4].childNodes[1].childNodes[1];
+    const tabUncheckEl = e.path[2];
+    const tabCheckEl = e.path[2].previousElementSibling;
+    uncheckTaskHandler(completeEl, tabUncheckEl, tabCheckEl);
     updateStorage();
   }
 });

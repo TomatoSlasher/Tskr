@@ -271,6 +271,9 @@ textarea {
 
   background-color: rgb(150, 150, 150);
 }
+.completed-container {
+  display: none;
+}
 .completed {
   display: flex;
   justify-content: center;
@@ -279,8 +282,8 @@ textarea {
   padding: 0.5rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  /* display: none; */
 }
+
 .completed p {
   font-size: 18px;
   margin-left: 0.5rem;
@@ -428,7 +431,6 @@ textarea {
   height: 2rem;
   padding: 0.3rem;
 
-  /* display: none; */
   cursor: pointer;
 }
 
@@ -458,7 +460,6 @@ textarea {
   height: 1rem;
   position: absolute;
   left: -0.7rem;
-  /* bottom: 0.78rem; */
 }
 .edit-icon {
   height: 2rem;
@@ -498,11 +499,11 @@ textarea {
   align-items: center;
   cursor: pointer;
 }
-.tab-trash:hover {
+.tab-icon:hover {
   background-color: var(--dark--hover);
 }
-.tab-pen:hover {
-  background-color: var(--dark--hover);
+.uncheck-container {
+  display: none;
 }
 
 .tab-icon p {
