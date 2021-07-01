@@ -94,6 +94,17 @@ textarea {
   background-color: var(--dark--hover);
 }
 
+.tabs::after {
+  content: " ";
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  border-top: none;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid var(--tab--bg);
+}
+
 .sort-tab {
   background-color: var(--tab--bg);
   width: 15rem;
@@ -105,16 +116,7 @@ textarea {
   display: none;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-.sort-tab::after {
-  content: " ";
-  position: absolute;
-  right: 20px;
-  top: -10px;
-  border-top: none;
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
-  border-bottom: 10px solid var(--tab--bg);
-}
+
 .sort-tab h2 {
   padding: 0.5rem 0.5rem;
 }
@@ -169,6 +171,65 @@ textarea {
   border-radius: 100%;
   cursor: pointer;
 }
+
+.template-tab {
+  background-color: var(--tab--bg);
+  width: 25rem;
+  border-radius: 10px;
+  position: absolute;
+  right: 18.3rem;
+  top: 5.75rem;
+  z-index: 11;
+  display: none;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.template-tab h2 {
+  margin: 0.5rem;
+}
+.templates-all {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 20rem;
+  margin: 0.5rem;
+}
+.templates-all::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #cccccc;
+}
+
+.templates-all::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+.templates-all::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+
+  background-color: rgb(150, 150, 150);
+}
+.template-container {
+  border: 1px solid var(--main--txt);
+  border-radius: 5px;
+  margin-bottom: 0.7rem;
+  width: 98%;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.template-container:hover {
+  background-color: var(--dark--hover);
+}
+.template-title {
+  font-size: 22px;
+}
+.template-columns {
+  font-size: 16px;
+  margin: 0.3rem 0rem;
+}
+.template-container img {
+  width: 22rem;
+  height: 7rem;
+}
+
 .new-list:hover {
   opacity: 0.8;
 }
@@ -278,7 +339,7 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(162, 221, 162);
+  background-color: rgb(100, 255, 100);
   padding: 0.5rem;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;

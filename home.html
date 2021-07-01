@@ -22,6 +22,11 @@
         <h2 contenteditable="true" class="document-name">Add document name</h2>
         <div class="right-header">
           <img
+            src="./svg/columns-solid.svg"
+            alt=""
+            class="template-btn header-btn"
+          />
+          <img
             src="./svg/sort-amount-down-alt-solid.svg"
             alt=""
             class="sort-btn header-btn"
@@ -42,16 +47,41 @@
         </div>
       </header>
     </div>
-    <div class="sort-tab">
+    <div class="sort-tab tabs">
       <h2 class="sort-h2">
         Sort by tag
         <img src="./svg/times-solid.svg" class="sort-close" alt="" />
       </h2>
       <div class="sort-item-container">
         <p class="no-tags">No tags added!</p>
-        <!-- <p class="sort-item">WebSite</p>
-        <p class="sort-item">Design</p>
-        <p class="sort-item">Paymnets</p> -->
+      </div>
+    </div>
+
+    <div class="template-tab tabs">
+      <h2>Choose template</h2>
+      <div class="templates-all">
+        <div class="template-container kanban">
+          <p class="template-title">Progress</p>
+          <p class="template-columns">To do,In Progress, Done</p>
+          <img src="./templates/kanbantemplate.jpg" />
+        </div>
+        <div class="template-container priorities">
+          <p class="template-title">Priorities</p>
+          <p class="template-columns">
+            To do, High priority, Low priority, Done
+          </p>
+          <img src="./templates/prioritiestemplate.jpg" />
+        </div>
+        <div class="template-container review">
+          <p class="template-title">Review</p>
+          <p class="template-columns">To do, Review, Done</p>
+          <img src="./templates/reviewtemplate.jpg" />
+        </div>
+        <div class="template-container progress-review">
+          <p class="template-title">Progress</p>
+          <p class="template-columns">To do, In Progress, Review, Done</p>
+          <img src="./templates/progressreviewtemplate.jpg" />
+        </div>
       </div>
     </div>
 

@@ -1,6 +1,9 @@
 //draggable library
 import { Sortable, Plugins } from "@shopify/draggable";
 
+// templates
+import * as template from "./templates";
+console.log(template.kanban);
 //get randome color from string
 
 // svg iconss
@@ -30,6 +33,13 @@ const app = document.querySelector(".app");
 const sortBtn = document.querySelector(".sort-btn");
 const sortTab = document.querySelector(".sort-tab");
 const sortItemContainer = document.querySelector(".sort-item-container");
+const templateBtn = document.querySelector(".template-btn");
+const templateTab = document.querySelector(".template-tab");
+
+const kanban = document.querySelector(".kanban");
+const priorities = document.querySelector(".priorities");
+const review = document.querySelector(".review");
+const progressReview = document.querySelector(".progress-review");
 
 // get current date
 const date = new Date();
@@ -985,3 +995,35 @@ app.addEventListener("click", (e) => {
 restoreTags();
 removeSortItem();
 sortTabHandler();
+
+templateBtn.addEventListener("click", () => {
+  templateTab.classList.toggle("display-block");
+});
+
+const insertingTemplate = (template) => {
+  return listContainer.insertAdjacentHTML("afterbegin", template);
+};
+console.log(kanban);
+kanban.addEventListener("click", (e) => {
+  e.preventDefault();
+  insertingTemplate(template.kanban);
+  updateStorage();
+});
+
+priorities.addEventListener("click", (e) => {
+  e.preventDefault();
+  insertingTemplate(template.priorities);
+  updateStorage();
+});
+
+review.addEventListener("click", (e) => {
+  e.preventDefault();
+  insertingTemplate(template.review);
+  updateStorage();
+});
+
+progressReview.addEventListener("click", (e) => {
+  e.preventDefault();
+  insertingTemplate(template.progressReview);
+  updateStorage();
+});
