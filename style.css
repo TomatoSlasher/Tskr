@@ -475,7 +475,7 @@ textarea {
   display: none;
   top: 2.5rem;
   left: 4.9rem;
-  border-radius: 10px;
+  border-radius: 5px;
   z-index: 1;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
@@ -493,28 +493,28 @@ textarea {
 .tab-icon {
   display: flex;
   width: 10rem;
-  padding: 1rem;
+  padding: 0.5rem;
+
+  align-items: center;
   cursor: pointer;
 }
 .tab-trash:hover {
   background-color: var(--dark--hover);
-  border-radius: 10px;
 }
 .tab-pen:hover {
   background-color: var(--dark--hover);
-  border-radius: 10px;
 }
+
 .tab-icon p {
-  padding-top: auto;
-  padding-bottom: auto;
-  padding: auto;
+  font-size: 18px;
+  margin-left: 0.5rem;
 }
 
 .display-block {
   display: block;
 }
 .li-edit-tab img {
-  height: 2rem;
+  height: 1rem;
 }
 
 .edit-icon:hover {

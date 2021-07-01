@@ -498,7 +498,6 @@ window.addEventListener(
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".edit-icon-li")) {
     const getEl = e.path[2].nextElementSibling;
-    console.log(getEl);
 
     const fullItem = e.path[3];
 
@@ -676,7 +675,6 @@ lists.addEventListener("click", (e) => {
 
   if (e.target.matches(".tab-text-pen")) {
     const tab = e.path[3].childNodes[1].childNodes[3].nextElementSibling;
-    console.log(tab);
 
     const fullItem = e.path[3];
 
@@ -812,7 +810,6 @@ const restoreTags = () => {
 sortBtn.addEventListener("click", (e) => {
   sortTab.classList.toggle("display-block");
   if (e.currentTarget == sortBtn) {
-    console.log("sort");
   }
 });
 window.addEventListener("click", (e) => {
@@ -831,7 +828,6 @@ const sortTabHandler = () => {
   const tags = document.querySelectorAll(".tags-all");
   const tagsInnerText = Array.from(tags, (x) => x.innerText);
   const tagsUnique = [...new Set(tagsInnerText)];
-  console.log(!tagsUnique);
 
   if (tagsUnique.length > 0) {
     noTags.style.display = "none";
