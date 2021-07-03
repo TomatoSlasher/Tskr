@@ -43,6 +43,9 @@ const priorities = document.querySelector(".priorities");
 const review = document.querySelector(".review");
 const progressReview = document.querySelector(".progress-review");
 const deleteListsWrapper = document.querySelector(".delete-lists-wrapper");
+const deleteLists = document.querySelector(".delete-lists");
+const deleteMsg = document.querySelector(".delete-msg");
+const popupContainer = document.querySelector(".popup-container");
 const popupOkBtn = document.querySelector(".delete-ok-btn");
 const popupCancelBtn = document.querySelector(".delete-cancel-btn");
 
@@ -1045,6 +1048,17 @@ listClear.addEventListener("click", () => {
   if (fullList.length > 0) {
     deleteListsWrapper.classList.add("display-block");
   }
+
+  window.addEventListener("click", (e) => {
+    if (
+      e.target != listClear &&
+      e.target != deleteLists &&
+      e.target != deleteMsg &&
+      e.target != popupContainer
+    ) {
+      deleteListsWrapper.classList.remove("display-block");
+    }
+  });
 });
 const popupOkBtnHandler = (e) => {
   window.localStorage.clear();
