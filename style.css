@@ -46,6 +46,7 @@ textarea {
   overflow-y: auto;
   outline: none;
 }
+
 .app {
   height: 79.5vh;
   overflow-x: auto;
@@ -63,6 +64,62 @@ textarea {
 
 .app::-webkit-scrollbar-thumb {
   background-color: rgb(150, 150, 150);
+}
+
+.delete-lists-wrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(90, 90, 90, 0.6);
+  z-index: 9999;
+}
+.delet-lists-container {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+}
+.delete-lists {
+  background-color: var(--tab--bg);
+  position: relative;
+  left: -50%;
+
+  z-index: 20;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.popup-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0rem;
+}
+.delete-msg {
+  font-size: 18px;
+  padding-bottom: 0.5rem;
+}
+.popup-btn {
+  border-radius: 5px;
+  background-color: var(--btn);
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  color: white !important;
+  margin: 0rem 0.3rem;
+}
+.popup-cancel-btn {
+  background-color: white;
+  border: 1px solid var(--btn);
+  color: black !important;
+}
+.popup-cancel-btn:hover {
+  background-color: var(--btn--bg);
+}
+.popup-ok-btn:hover {
+  background-color: var(--btn-bg);
 }
 .header {
   display: flex;
@@ -124,7 +181,7 @@ textarea {
   display: flex;
   justify-content: space-between;
 }
-.sort-h2 img {
+.sort-close {
   height: 2rem;
   background-color: var(--main--txt);
   border-radius: 100%;
@@ -183,14 +240,18 @@ textarea {
   display: none;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-.template-tab h2 {
+.template-header {
+  display: flex;
+  justify-content: space-between;
   margin: 0.5rem;
 }
+
 .templates-all {
   overflow-y: scroll;
   overflow-x: hidden;
   height: 20rem;
   margin: 0.5rem;
+  margin-top: 1rem !important;
 }
 .templates-all::-webkit-scrollbar-track {
   border-radius: 10px;
@@ -204,7 +265,6 @@ textarea {
 
 .templates-all::-webkit-scrollbar-thumb {
   border-radius: 10px;
-
   background-color: rgb(150, 150, 150);
 }
 .template-container {
@@ -213,6 +273,7 @@ textarea {
   margin-bottom: 0.7rem;
   width: 98%;
   padding: 0.5rem;
+
   cursor: pointer;
 }
 .template-container:hover {
@@ -228,6 +289,7 @@ textarea {
 .template-container img {
   width: 22rem;
   height: 7rem;
+  border-radius: 5px;
 }
 
 .new-list:hover {

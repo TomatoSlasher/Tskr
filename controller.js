@@ -3,7 +3,7 @@ import { Sortable, Plugins } from "@shopify/draggable";
 
 // templates
 import * as template from "./templates";
-console.log(template.kanban);
+
 //get randome color from string
 
 // svg iconss
@@ -35,11 +35,16 @@ const sortTab = document.querySelector(".sort-tab");
 const sortItemContainer = document.querySelector(".sort-item-container");
 const templateBtn = document.querySelector(".template-btn");
 const templateTab = document.querySelector(".template-tab");
-
+const templatesAll = document.querySelector(".templates-all");
+const templateHeader = document.querySelector(".template-header");
+const templateH2 = document.querySelector(".template-h2");
 const kanban = document.querySelector(".kanban");
 const priorities = document.querySelector(".priorities");
 const review = document.querySelector(".review");
 const progressReview = document.querySelector(".progress-review");
+const deleteListsWrapper = document.querySelector(".delete-lists-wrapper");
+const popupOkBtn = document.querySelector(".delete-ok-btn");
+const popupCancelBtn = document.querySelector(".delete-cancel-btn");
 
 // get current date
 const date = new Date();
@@ -887,11 +892,6 @@ lists.addEventListener("click", (e) => {
   }
 });
 
-// clear button for deleting localstorage
-listClear.addEventListener("click", () => {
-  window.localStorage.clear();
-  lists.innerHTML = "";
-});
 const removeSortItem = () => {
   const sortItem = document.querySelectorAll(".sort-item");
   sortItem.forEach((x) => x.remove());
@@ -910,8 +910,6 @@ const restoreTags = () => {
 
 sortBtn.addEventListener("click", (e) => {
   sortTab.classList.toggle("display-block");
-  if (e.currentTarget == sortBtn) {
-  }
 });
 window.addEventListener("click", (e) => {
   if (
@@ -1003,7 +1001,7 @@ templateBtn.addEventListener("click", () => {
 const insertingTemplate = (template) => {
   return listContainer.insertAdjacentHTML("afterbegin", template);
 };
-console.log(kanban);
+
 kanban.addEventListener("click", (e) => {
   e.preventDefault();
   insertingTemplate(template.kanban);
@@ -1026,4 +1024,36 @@ progressReview.addEventListener("click", (e) => {
   e.preventDefault();
   insertingTemplate(template.progressReview);
   updateStorage();
+});
+
+window.addEventListener("click", (e) => {
+  if (
+    e.target != templatesAll &&
+    e.target != templateBtn &&
+    e.target != templateHeader &&
+    e.target != templateH2 &&
+    e.target != templateTab
+  ) {
+    templateTab.classList.remove("display-block");
+  }
+});
+
+// clear button for deleting localstorage
+listClear.addEventListener("click", () => {
+  const fullList = document.querySelectorAll(".full-list");
+  console.log(fullList);
+  if (fullList.length > 0) {
+    deleteListsWrapper.classList.add("display-block");
+  }
+});
+const popupOkBtnHandler = (e) => {
+  window.localStorage.clear();
+  lists.innerHTML = "";
+  deleteListsWrapper.classList.remove("display-block");
+};
+popupOkBtn.addEventListener("click", (e) => {
+  popupOkBtnHandler();
+});
+popupCancelBtn.addEventListener("click", (e) => {
+  deleteListsWrapper.classList.remove("display-block");
 });
