@@ -38,6 +38,11 @@ const templateTab = document.querySelector(".template-tab");
 const templatesAll = document.querySelector(".templates-all");
 const templateHeader = document.querySelector(".template-header");
 const templateH2 = document.querySelector(".template-h2");
+const templateContainer = document.querySelectorAll(".template-container");
+const templateTitle = document.querySelectorAll(".template-title");
+const templateColumns = document.querySelectorAll(".template-columns");
+const templateImg = document.querySelectorAll(".template-img");
+
 const kanban = document.querySelector(".kanban");
 const priorities = document.querySelector(".priorities");
 const review = document.querySelector(".review");
@@ -45,9 +50,16 @@ const progressReview = document.querySelector(".progress-review");
 const deleteListsWrapper = document.querySelector(".delete-lists-wrapper");
 const deleteLists = document.querySelector(".delete-lists");
 const deleteMsg = document.querySelector(".delete-msg");
-const popupContainer = document.querySelector(".popup-container");
-const popupOkBtn = document.querySelector(".delete-ok-btn");
-const popupCancelBtn = document.querySelector(".delete-cancel-btn");
+const deleteBtnContainer = document.querySelector(".delete-btn-container");
+const deleteOkBtn = document.querySelector(".delete-ok-btn");
+const deleteCancelBtn = document.querySelector(".delete-cancel-btn");
+
+const templateWrapper = document.querySelector(".template-wrapper");
+const templateLists = document.querySelector(".template-lists");
+const TemplateMsg = document.querySelector(".template-msg");
+const templateBtnContainer = document.querySelector(".template-btn-container");
+const templateOkBtn = document.querySelector(".template-ok-btn");
+const templateCancelBtn = document.querySelector(".template-cancel-btn");
 
 // get current date
 const date = new Date();
@@ -1005,30 +1017,6 @@ const insertingTemplate = (template) => {
   return listContainer.insertAdjacentHTML("afterbegin", template);
 };
 
-kanban.addEventListener("click", (e) => {
-  e.preventDefault();
-  insertingTemplate(template.kanban);
-  updateStorage();
-});
-
-priorities.addEventListener("click", (e) => {
-  e.preventDefault();
-  insertingTemplate(template.priorities);
-  updateStorage();
-});
-
-review.addEventListener("click", (e) => {
-  e.preventDefault();
-  insertingTemplate(template.review);
-  updateStorage();
-});
-
-progressReview.addEventListener("click", (e) => {
-  e.preventDefault();
-  insertingTemplate(template.progressReview);
-  updateStorage();
-});
-
 window.addEventListener("click", (e) => {
   if (
     e.target != templatesAll &&
@@ -1039,6 +1027,66 @@ window.addEventListener("click", (e) => {
   ) {
     templateTab.classList.remove("display-block");
   }
+});
+
+const templatePopupHandler = (template) => {
+  window.localStorage.clear();
+  lists.innerHTML = "";
+  insertingTemplate(template);
+  updateStorage();
+};
+
+const templateOkBtnHandler = (templateName) => {
+  const fullList = document.querySelectorAll(".full-list");
+  console.log(fullList);
+  if (fullList.length > 0) {
+    console.log("ab");
+    templateWrapper.classList.add("display-block");
+    templateOkBtn.addEventListener("click", () => {
+      templatePopupHandler(templateName);
+      templateWrapper.classList.remove("display-block");
+    });
+    templateCancelBtn.addEventListener("click", () => {
+      templateWrapper.classList.remove("display-block");
+    });
+
+    window.addEventListener("click", (e) => {
+      if (
+        !e.target.matches(".template-title") &&
+        !e.target.matches(".template-lists") &&
+        !e.target.matches(".template-msg") &&
+        !e.target.matches(".template-btn-container") &&
+        !e.target.matches(".template-columns") &&
+        !e.target.matches(".template-img") &&
+        !e.target.matches(".template-container")
+      ) {
+        templateWrapper.classList.remove("display-block");
+      }
+    });
+  } else {
+    templatePopupHandler(templateName);
+  }
+};
+
+kanban.addEventListener("click", (e) => {
+  console.log("3");
+  templateOkBtnHandler(template.kanban);
+});
+
+priorities.addEventListener("click", (e) => {
+  console.log("3");
+  templateOkBtnHandler(template.priorities);
+  console.log("4");
+});
+
+review.addEventListener("click", (e) => {
+  console.log("3");
+  templateOkBtnHandler(template.review);
+});
+
+progressReview.addEventListener("click", (e) => {
+  console.log("3");
+  templateOkBtnHandler(template.progressReview);
 });
 
 // clear button for deleting localstorage
@@ -1054,20 +1102,20 @@ listClear.addEventListener("click", () => {
       e.target != listClear &&
       e.target != deleteLists &&
       e.target != deleteMsg &&
-      e.target != popupContainer
+      e.target != deleteBtnContainer
     ) {
       deleteListsWrapper.classList.remove("display-block");
     }
   });
 });
-const popupOkBtnHandler = (e) => {
+const deleteOkBtnHandler = (e) => {
   window.localStorage.clear();
   lists.innerHTML = "";
   deleteListsWrapper.classList.remove("display-block");
 };
-popupOkBtn.addEventListener("click", (e) => {
-  popupOkBtnHandler();
+deleteOkBtn.addEventListener("click", (e) => {
+  deleteOkBtnHandler();
 });
-popupCancelBtn.addEventListener("click", (e) => {
+deleteCancelBtn.addEventListener("click", (e) => {
   deleteListsWrapper.classList.remove("display-block");
 });

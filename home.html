@@ -69,24 +69,30 @@
           <div class="template-container kanban">
             <p class="template-title">Progress</p>
             <p class="template-columns">To do, In Progress, Done</p>
-            <img src="./templates/kanbantemplate.jpg" />
+            <img class="template-img" src="./templates/kanbantemplate.jpg" />
           </div>
           <div class="template-container priorities">
             <p class="template-title">Priorities</p>
             <p class="template-columns">
               To do, High priority, Low priority, Done
             </p>
-            <img src="./templates/prioritiestemplate.jpg" />
+            <img
+              class="template-img"
+              src="./templates/prioritiestemplate.jpg"
+            />
           </div>
           <div class="template-container review">
             <p class="template-title">Review</p>
             <p class="template-columns">To do, Review, Done</p>
-            <img src="./templates/reviewtemplate.jpg" />
+            <img class="template-img" src="./templates/reviewtemplate.jpg" />
           </div>
           <div class="template-container progress-review">
             <p class="template-title">Progress-Review</p>
             <p class="template-columns">To do, In Progress, Review, Done</p>
-            <img src="./templates/progressreviewtemplate.jpg" />
+            <img
+              class="template-img"
+              src="./templates/progressreviewtemplate.jpg"
+            />
           </div>
         </div>
       </div>
@@ -157,13 +163,28 @@
         </div>
       </div>
     </div>
-    <div class="delete-lists-wrapper">
-      <div class="delet-lists-container">
-        <div class="delete-lists">
-          <p class="delete-msg">Are your sure you want to delete all lists?</p>
-          <div class="popup-btn-container">
+    <div class="delete-lists-wrapper popup-wrapper">
+      <div class="popup-container">
+        <div class="delete-lists popup-lists">
+          <p class="delete-msg popup-msg">
+            Are your sure you want to delete all lists?
+          </p>
+          <div class="delete-btn-container popup-btn-container">
             <p class="popup-ok-btn delete-ok-btn popup-btn">Ok</p>
             <p class="popup-cancel-btn delete-cancel-btn popup-btn">Cancel</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="template-wrapper popup-wrapper">
+      <div class="popup-container">
+        <div class="template-lists popup-lists">
+          <p class="template-msg popup-msg">
+            Adding a new template will delete all current lists
+          </p>
+          <div class="template-btn-container popup-btn-container">
+            <p class="popup-ok-btn template-ok-btn popup-btn">Ok</p>
+            <p class="popup-cancel-btn template-cancel-btn popup-btn">Cancel</p>
           </div>
         </div>
       </div>
