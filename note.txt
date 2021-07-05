@@ -1,0 +1,10 @@
+<div class='list-tab'>
+                <div class='list-edit-icon tab-icon'>
+                  <img class= 'list-edit-tab-img tab-img' src="${pen}"/>
+                  <p class='list-remove-tab-text'> Edit task </p>
+                </div>
+
+                 <div class='list-remove-icon tab-icon'>
+                  <img class= 'list-remove-tab-img tab-img' src="${trash}"/> <p class='list-remove-tab-text'> Remove task </p>
+                  </div>
+                 </div>

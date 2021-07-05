@@ -4,8 +4,6 @@ import { Sortable, Plugins } from "@shopify/draggable";
 // templates
 import * as template from "./templates";
 
-//get randome color from string
-
 // svg iconss
 import edit from "url:./svg/edit-regular.svg";
 import pen from "url:./svg/pen-solid.svg";
@@ -67,6 +65,7 @@ const month = date.toLocaleString("default", { month: "short" });
 const day = date.getUTCDate();
 const currentDate = `${day} ${month}`;
 
+//get randome color from string
 String.prototype.toColor = function () {
   var colors = [
     "#ff3f3f",
@@ -204,6 +203,7 @@ const gitTextareaMarkup = (value) => {
 `;
   return textareaValue;
 };
+
 const gitTaskMarkup = (value) => {
   const listItemText = `<p class='list-item-text'>${value}</p>`;
   return listItemText;
@@ -281,9 +281,22 @@ const gitListMarkup = (value) => {
                   <div class = 'li-container'></div>
 
                   </ul>
+                  <div class='list-tab'>
+                <div class='list-edit-icon tab-icon'>
+                  <img class= 'list-edit-tab-img tab-img' src="${pen}"/>
+                  <p class='list-remove-tab-text'> Edit list</p>
+                </div>
+
+                 <div class='list-remove-icon tab-icon'>
+                  <img class= 'list-remove-tab-img tab-img' src="${trash}"/> <p class='list-remove-tab-text'> Remove list </p>
+                  </div>
+                 </div>
 
                   <p  class="add-task"><span class='task-plus'><img class = 'add-task-img' src="${plus}"/> </span>  Add task</p>
-                </div>
+
+
+         </div>
+
         `;
   return newListMarkup;
 };
@@ -541,6 +554,38 @@ window.addEventListener(
   true
 );
 
+app.addEventListener("click", (e) => {
+  if (e.target.matches(".edit-icon")) {
+    const listTab = e.path[2].nextElementSibling;
+    listTab.classList.toggle("display-block");
+  }
+});
+
+const removingEl = (el) => {
+  el.remove();
+  restoreTags();
+  removeSortItem();
+  sortTabHandler();
+  updateStorage();
+  updateSort();
+};
+
+// removing list when click on the remove list
+lists.addEventListener("click", (e) => {
+  if (e.target.matches(".list-remove-icon")) {
+    const liSibling = e.path[2];
+    removingEl(liSibling);
+  }
+  if (e.target.matches(".list-remove-tab-img ")) {
+    const liSibling = e.path[3];
+    removingEl(liSibling);
+  }
+  if (e.target.matches(".list-remove-tab-text")) {
+    const liSibling = e.path[3];
+    removingEl(liSibling);
+  }
+});
+
 // adding the editing tab when you click the pencil inside the task items
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".edit-icon-li")) {
@@ -583,30 +628,15 @@ window.addEventListener("click", (e) => {
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".tab-trash")) {
     const liSibling = e.path[2];
-    liSibling.remove();
-    restoreTags();
-    removeSortItem();
-    sortTabHandler();
-    updateSort();
-    updateStorage();
+    removingEl(liSibling);
   }
   if (e.target.matches(".edit-trash-li")) {
     const liSibling = e.path[3];
-    liSibling.remove();
-    restoreTags();
-    removeSortItem();
-    sortTabHandler();
-    updateSort();
-    updateStorage();
+    removingEl(liSibling);
   }
   if (e.target.matches(".tab-text-trash")) {
     const liSibling = e.path[3];
-    liSibling.remove();
-    restoreTags();
-    removeSortItem();
-    sortTabHandler();
-    updateSort();
-    updateStorage();
+    removingEl(liSibling);
   }
 });
 
@@ -1038,9 +1068,8 @@ const templatePopupHandler = (template) => {
 
 const templateOkBtnHandler = (templateName) => {
   const fullList = document.querySelectorAll(".full-list");
-  console.log(fullList);
+
   if (fullList.length > 0) {
-    console.log("ab");
     templateWrapper.classList.add("display-block");
     templateOkBtn.addEventListener("click", () => {
       templatePopupHandler(templateName);
@@ -1069,30 +1098,25 @@ const templateOkBtnHandler = (templateName) => {
 };
 
 kanban.addEventListener("click", (e) => {
-  console.log("3");
   templateOkBtnHandler(template.kanban);
 });
 
 priorities.addEventListener("click", (e) => {
-  console.log("3");
   templateOkBtnHandler(template.priorities);
-  console.log("4");
 });
 
 review.addEventListener("click", (e) => {
-  console.log("3");
   templateOkBtnHandler(template.review);
 });
 
 progressReview.addEventListener("click", (e) => {
-  console.log("3");
   templateOkBtnHandler(template.progressReview);
 });
 
 // clear button for deleting localstorage
 listClear.addEventListener("click", () => {
   const fullList = document.querySelectorAll(".full-list");
-  console.log(fullList);
+
   if (fullList.length > 0) {
     deleteListsWrapper.classList.add("display-block");
   }
