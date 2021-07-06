@@ -208,6 +208,10 @@ const gitTaskMarkup = (value) => {
   const listItemText = `<p class='list-item-text'>${value}</p>`;
   return listItemText;
 };
+const gitListEditMarkup = (value) => {
+  const listText = `<h2 class='list-title'>${value}</h2>`;
+  return listText;
+};
 
 const gitLiMarkup = (value) => {
   const newListItemMarkup = `
@@ -276,15 +280,16 @@ const gitListMarkup = (value) => {
   const newListMarkup = `
         <div class="full-list">
                   <ul class="list">
-                  <h2 class='list-title'>${value}
-                  <img class= 'edit-icon'src="${dots}"/> </h2>
+                  <div class='list-header'>
+                  <h2 class='list-title'>${value}</h2><img class= 'edit-icon'src="${dots}"/>
+                  </div>
                   <div class = 'li-container'></div>
 
                   </ul>
                   <div class='list-tab'>
                 <div class='list-edit-icon tab-icon'>
                   <img class= 'list-edit-tab-img tab-img' src="${pen}"/>
-                  <p class='list-remove-tab-text'> Edit list</p>
+                  <p class='list-edit-tab-text'> Edit list</p>
                 </div>
 
                  <div class='list-remove-icon tab-icon'>
@@ -586,6 +591,27 @@ lists.addEventListener("click", (e) => {
   }
 });
 
+lists.addEventListener("click", (e) => {
+  if (e.target.matches(".list-edit-icon")) {
+    const liSibling =
+      e.path[1].previousElementSibling.childNodes[1].firstElementChild;
+
+    editEl(liSibling, gitListEditMarkup);
+  }
+  if (e.target.matches(".list-edit-tab-img ")) {
+    const liSibling =
+      e.path[2].previousElementSibling.childNodes[1].firstElementChild;
+
+    editEl(liSibling, gitListEditMarkup);
+  }
+  if (e.target.matches(".list-edit-tab-text")) {
+    const liSibling =
+      e.path[2].previousElementSibling.childNodes[1].firstElementChild;
+
+    editEl(liSibling, gitListEditMarkup);
+  }
+});
+
 // adding the editing tab when you click the pencil inside the task items
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".edit-icon-li")) {
@@ -715,7 +741,7 @@ lists.addEventListener("click", (e) => {
 });
 
 // task name edit
-const editTask = (element, fullItem) => {
+const editEl = (element, text) => {
   element.style.display = "none";
   // get the text of the list item
   const liInnerText = element.innerText;
@@ -728,6 +754,7 @@ const editTask = (element, fullItem) => {
   const tagAdd = document.querySelector(".add-tag-btn");
 
   taskTextarea.focus();
+
   // move cursor to the end of the word
   taskTextarea.setSelectionRange(
     taskTextarea.value.length,
@@ -743,36 +770,19 @@ const editTask = (element, fullItem) => {
     element.style.display = "block";
   });
 
-  tagAdd.addEventListener("mousedown", () => {
-    const textValue = taskTextarea.value;
-
-    // only adding new task item if the textarea box containes text
-    if (textValue) {
-      taskTextareaAll.insertAdjacentHTML("afterend", gitTaskMarkup(textValue));
-      element.remove();
-      taskTextareaAll.remove();
-    }
-    if (!textValue) {
-      fullItem.remove();
-    }
-    updateStorage();
-  });
-
   taskTextarea.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       const textValue = taskTextarea.value;
 
       // only adding new task item if the textarea box containes text
       if (textValue) {
-        taskTextareaAll.insertAdjacentHTML(
-          "afterend",
-          gitTaskMarkup(textValue)
-        );
+        taskTextareaAll.insertAdjacentHTML("afterend", text(textValue));
         element.remove();
         taskTextareaAll.remove();
       }
       if (!textValue) {
-        fullItem.remove();
+        taskTextareaAll.insertAdjacentHTML("afterend", text(liInnerText));
+        taskTextareaAll.remove();
       }
       updateStorage();
       updateSort();
@@ -787,15 +797,13 @@ const editTask = (element, fullItem) => {
 
           // only adding new task item if the textarea box containes text
           if (textValue) {
-            taskTextareaAll.insertAdjacentHTML(
-              "afterend",
-              gitTaskMarkup(textValue)
-            );
+            taskTextareaAll.insertAdjacentHTML("afterend", text(textValue));
             element.remove();
             taskTextareaAll.remove();
           }
           if (!textValue) {
-            fullItem.remove();
+            taskTextareaAll.insertAdjacentHTML("afterend", text(liInnerText));
+            taskTextareaAll.remove();
           }
           updateStorage();
         });
@@ -811,25 +819,19 @@ lists.addEventListener("click", (e) => {
   if (e.target.matches(".tab-pen")) {
     const tab = e.path[2].childNodes[1].childNodes[3].nextElementSibling;
 
-    const fullItem = e.path[2];
-
-    editTask(tab, fullItem);
+    editEl(tab, gitTaskMarkup);
   }
 
   if (e.target.matches(".edit-pen-li")) {
     const tab = e.path[3].childNodes[1].childNodes[5];
 
-    const fullItem = e.path[3];
-
-    editTask(tab, fullItem);
+    editEl(tab, gitTaskMarkup);
   }
 
   if (e.target.matches(".tab-text-pen")) {
     const tab = e.path[3].childNodes[1].childNodes[3].nextElementSibling;
 
-    const fullItem = e.path[3];
-
-    editTask(tab, fullItem);
+    editEl(tab, gitTaskMarkup);
   }
 });
 

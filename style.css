@@ -370,10 +370,14 @@ textarea {
   height: initial;
 }
 
-.list-title {
+.list-header {
   margin: 1rem 1rem;
   display: flex;
   justify-content: space-between;
+}
+.list-title {
+  width: 13rem;
+  word-wrap: break-word;
 }
 .li-container {
   max-height: 55vh;
@@ -615,18 +619,17 @@ textarea {
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-.list-tab{
+.list-tab {
   position: absolute;
 
   background-color: var(--tab--bg);
   border-radius: 10px;
-  display:none;
+  display: none;
   left: 6.3rem;
   top: 3rem;
   border-radius: 5px;
   z-index: 1;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-
 }
 .list-tab::after {
   content: " ";
