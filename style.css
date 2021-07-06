@@ -578,6 +578,7 @@ textarea {
 }
 .list-item-text {
   margin: 0rem 0.6rem;
+  margin-left: 0.8rem;
   font-size: 23px;
   overflow-wrap: break-word;
 }
@@ -613,10 +614,20 @@ textarea {
   border-radius: 10px;
   display: none;
   top: 2.5rem;
-  left: 4.9rem;
+  left: 4.3rem;
   border-radius: 5px;
   z-index: 1;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+.li-edit-tab::after {
+  content: " ";
+  position: absolute;
+  right: 10px;
+  top: -10px;
+  border-top: none;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid var(--tab--bg);
 }
 
 .list-tab {

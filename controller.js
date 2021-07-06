@@ -241,7 +241,7 @@ const gitLiMarkup = (value) => {
 
                         <div class="task-footer">
                          <p class="created"> <img class="clock" src="${clock}" alt="">${currentDate}</p>
-                         <p class="created"> <img class="clock" src="${clock}" alt="">Due 18 May</p>
+                         <p class="created"></p>
                         </div>
 
 
