@@ -17,6 +17,8 @@ import checkCircle from "url:./svg/check-circle-solid.svg";
 import unCheckCircle from "url:./svg/times-circle-solid.svg";
 
 //imported html element
+const documentName = document.querySelector(".document-name");
+
 const lists = document.querySelector(".list-container");
 const list = document.querySelectorAll(".list");
 const newList = document.querySelector(".new-list");
@@ -109,9 +111,28 @@ function updateStorage() {
 let items = JSON.parse(localStorage.getItem("entry"));
 
 // inserting localstorage inner html when refreshing
-
 if (items) {
   lists.insertAdjacentHTML("afterbegin", items.listUL);
+}
+
+function updateProjectName() {
+  let listsHtml = document.querySelector(".document-name").innerText;
+
+  const entry = {
+    listUL: listsHtml,
+  };
+
+  localStorage.setItem("documentTitle", JSON.stringify(entry));
+}
+
+let documentStorage = JSON.parse(localStorage.getItem("documentTitle"));
+console.log(documentStorage.listUL);
+
+documentName.addEventListener("input", () => {
+  updateProjectName();
+});
+if (documentStorage) {
+  documentName.innerText = documentStorage.listUL;
 }
 
 // // allowing task items to be sortable

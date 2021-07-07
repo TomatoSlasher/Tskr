@@ -1,26 +1,26 @@
-FEATURES :
-[]- delete list btn
+To-do :
+[x]- delete list btn
 [x]- delete list item btn
-[del]- multiple task files
-[]- home page with draggable boxes
-[]- editing option when hovering on the task title and task item
-[]- task item gave diffrent colors
+[maybe]- multiple task files
+[maybe]- home page with draggable boxes
+[x]- editing option when hovering on the task title and task item
 [x]- draggable list
 []- touch event sorting
-[]- list tab
-[]- mark as completed button
-[]- task deadline
-[]- tags sorting
+[x]- list tab
+[x]- mark as completed button
+[maybe]- task deadline
+[x]- tags sorting
 [x]- task tags
-[]- progress bar shows what features are completed
-[]- light and dark mode
-[]- task counter in lists
-[]- creation date in task card
+[del]- progress bar shows what features are completed
+[maybe]- light and dark mode
+[maybe]- task counter in lists
+[x]- creation date in task card
 [x]- cursoer changing when dragging
 [x]- text area btn
-[]- update sortable list btn when sort list becomes sortable
-[]- new tags bg color palette
-[]- no tags msg on sort tab
+[del]- update sortable list btn when sort list becomes sortable
+[maybe]- new tags bg color palette
+[x]-'no tags' msg on sort tab
+[]- Netlify hosting
 
 BUGS :
 [x]-remove sortList
@@ -34,5 +34,6 @@ BUGS :
 [x]- list crashes when textarea for task is open and click slightly outisde of its
 []-tag dosen't colse with you click add tag on aother task
 [x]- task text area won't close
-[del]- fix icon importing (check forkify)
+[]- save 'document name' in local storage
+
 

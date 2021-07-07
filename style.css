@@ -144,6 +144,7 @@ textarea {
 .document-name {
   cursor: pointer;
   padding: 0.5rem;
+  min-width: 10rem;
 }
 .right-header {
   display: flex;
