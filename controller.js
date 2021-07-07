@@ -154,6 +154,17 @@ const updateSort = function () {
     plugins: [Plugins["SwapAnimation"]],
   });
 
+  sortable.on("drag:start", (e) => {
+    let ListTab = document.querySelectorAll(".list-tab");
+
+    ListTab.forEach((el) => {
+      if (el) {
+        if (el.classList.contains("display-block")) {
+          el.classList.remove("display-block");
+        }
+      }
+    });
+  });
   sortable.on("drag:move", (e) => {
     e.source.style.backgroundColor = "#cbcdd1";
     e.source.childNodes[1].style.visibility = "hidden";
@@ -287,14 +298,14 @@ const gitListMarkup = (value) => {
 
                   </ul>
                   <div class='list-tab'>
-                <div class='list-edit-icon tab-icon'>
-                  <img class= 'list-edit-tab-img tab-img' src="${pen}"/>
-                  <p class='list-edit-tab-text'> Edit list</p>
-                </div>
+                    <div class='list-edit-icon tab-icon'>
+                      <img class= 'list-edit-tab-img tab-img' src="${pen}"/>
+                      <p class='list-edit-tab-text'> Edit list</p>
+                    </div>
 
-                 <div class='list-remove-icon tab-icon'>
-                  <img class= 'list-remove-tab-img tab-img' src="${trash}"/> <p class='list-remove-tab-text'> Remove list </p>
-                  </div>
+                    <div class='list-remove-icon tab-icon'>
+                      <img class= 'list-remove-tab-img tab-img' src="${trash}"/> <p class='list-remove-tab-text'> Remove list </p>
+                      </div>
                  </div>
 
                   <p  class="add-task"><span class='task-plus'><img class = 'add-task-img' src="${plus}"/> </span>  Add task</p>
@@ -575,6 +586,24 @@ const removingEl = (el) => {
   updateSort();
 };
 
+window.addEventListener("click", (e) => {
+  let ListTab = document.querySelectorAll(".list-tab");
+
+  ListTab.forEach((el) => {
+    if (el) {
+      const iconLi =
+        el.previousElementSibling.firstElementChild.lastElementChild;
+
+      if (el.classList.contains("display-block")) {
+        if (e.target != el && e.target != iconLi) {
+          el.classList.remove("display-block");
+          updateSort();
+        }
+      }
+    }
+  });
+});
+
 // removing list when click on the remove list
 lists.addEventListener("click", (e) => {
   if (e.target.matches(".list-remove-icon")) {
@@ -632,9 +661,9 @@ lists.addEventListener("click", (e) => {
 });
 
 // removing task tab when clicking outside
-let tabTrash = "";
+
 window.addEventListener("click", (e) => {
-  tabTrash = document.querySelectorAll(".li-edit-tab");
+  let tabTrash = document.querySelectorAll(".li-edit-tab");
 
   tabTrash.forEach((el) => {
     if (el) {
