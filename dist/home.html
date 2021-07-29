@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tskr</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/home.f556d9ac.css">
+    <script src="https://kit.fontawesome.com/d5013eb6e8.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="header-wrapper">
+        <header class="header">
+          <h2 contenteditable="true" class="document-name">
+            Add Project Name...
+          </h2>
+          <div class="right-header">
+            <img src="/columns-solid.6d0444c9.svg" alt="" class="template-btn header-btn">
+            <img src="/sort-amount-down-alt-solid.a1e2bc66.svg" alt="" class="sort-btn header-btn">
+            <img src="/trash-alt-solid.6570d41a.svg" alt="Trash" class="trash-btn header-btn">
+            <div class="newlist-container">
+              <div class="new-list">
+                <p>
+                  <img src="/plus-solid.bcae82a9.svg" alt="">
+                  <span class="new-list-txt">Add list</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+      <div class="sort-tab tabs">
+        <h2 class="sort-h2">
+          Sort by tag
+          <img src="/times-solid.a3d2150a.svg" class="sort-close" alt="">
+        </h2>
+        <div class="sort-item-container">
+          <p class="no-tags">No tags added!</p>
+        </div>
+      </div>
+
+      <div class="template-tab tabs">
+        <div class="template-header">
+          <h2 class="template-h2">Choose template</h2>
+          <img src="/times-solid.a3d2150a.svg" class="sort-close" alt="">
+        </div>
+        <div class="templates-all">
+          <div class="template-container kanban">
+            <p class="template-title">Progress</p>
+            <p class="template-columns">To do, In Progress, Done</p>
+            <img class="template-img" src="/kanbantemplate.69b19e0b.jpg">
+          </div>
+          <div class="template-container priorities">
+            <p class="template-title">Priorities</p>
+            <p class="template-columns">
+              To do, High priority, Low priority, Done
+            </p>
+            <img class="template-img" src="/prioritiestemplate.c5e2fb40.jpg">
+          </div>
+          <div class="template-container review">
+            <p class="template-title">Review</p>
+            <p class="template-columns">To do, Review, Done</p>
+            <img class="template-img" src="/reviewtemplate.9cab9d53.jpg">
+          </div>
+          <div class="template-container progress-review">
+            <p class="template-title">Progress-Review</p>
+            <p class="template-columns">To do, In Progress, Review, Done</p>
+            <img class="template-img" src="/progressreviewtemplate.18daf0b2.jpg">
+          </div>
+        </div>
+      </div>
+
+      <div class="app">
+        <div class="lists">
+          <div class="list-container">
+            <!-- <div class="full-list">
+                  <ul class="list">
+                  <h2 class='list-title'>New List
+                  <img class= 'edit-icon' src="./svg/edit-regular.svg"> </h2>
+                  <div class = 'li-container'>
+
+                    <div class='full-item'>
+
+                      <li  class="list-item">
+                        <div class="task-header">
+                          <div class="tags">
+                            <p class="tags-el">Front-End <img src="./svg/times-solid.svg" alt=""> </p>
+                            <p class="tags-el">Website <img src="./svg/times-solid.svg" alt=""></p>
+                            <p class="tags-el">Design <img src="./svg/times-solid.svg" alt=""></p>
+
+                            <div class="text-tag-add">
+                              <textarea class=' tags-text' name="tags-text" id="task-text" placeholder="Enter Tag"></textarea>
+                              <div class="add-cancel-btn">
+                                <p class="add-tag-btn tag-btn">Add Tag</p>
+                                <p class="cancel-tag-btn tag-btn">Cancel</p>
+                              </div>
+
+
+                            </div>
+
+                            <p class="tags-el tags-plus">+</p>
+                          </div>
+                         <img id='edit-con' class= 'edit-icon-li' src="./svg/ellipsis-h-solid.svg"/>
+                        </div>
+
+                         <p class='list-item-text'>Set up payments verfication. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam eos, voluptatibus rerum, numquam ad quam commodi, a inventore blanditiis laudantium distinctio rem iure ea non labore omnis. Porro, excepturi! Repellat.</p>
+
+                        <div class="task-footer">
+                         <p class="created"> <img class="clock" src="./svg/clock-regular.svg" alt=""> 4 May</p>
+                         <p class="created"> <img class="clock" src="./svg/clock-regular.svg" alt="">Due 18 May</p>
+                        </div>
+
+
+                      </li>
+
+                      <div id = 'tab' class='li-edit-tab'>
+                          <div class='tab-icon tab-pen'>
+                             <img class= 'edit-pen-li tab-img' src="./svg/pen-solid.svg"/>
+                             <p class='tab-text-pen'> Edit task </p>
+                          </div>
+
+                          <div class='tab-icon tab-trash'>
+                            <img class= 'edit-trash-li tab-img' src="./svg/trash-alt-solid.svg"/> <p class='tab-text-trash'> Remove task </p>
+                          </div>
+
+                      </div>
+                    </div>
+
+                    </div>
+
+                  </ul>
+
+                  <p  class="add-task">Add task <span class="plus-sign">+</span></p>
+                </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="delete-lists-wrapper popup-wrapper">
+      <div class="popup-container">
+        <div class="delete-lists popup-lists">
+          <p class="delete-msg popup-msg">
+            Are your sure you want to delete all lists?
+          </p>
+          <div class="delete-btn-container popup-btn-container">
+            <p class="popup-ok-btn delete-ok-btn popup-btn">Ok</p>
+            <p class="popup-cancel-btn delete-cancel-btn popup-btn">Cancel</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="template-wrapper popup-wrapper">
+      <div class="popup-container">
+        <div class="template-lists popup-lists">
+          <p class="template-msg popup-msg">
+            Adding a new template will delete all current lists
+          </p>
+          <div class="template-btn-container popup-btn-container">
+            <p class="popup-ok-btn template-ok-btn popup-btn">Ok</p>
+            <p class="popup-cancel-btn template-cancel-btn popup-btn">Cancel</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/home.fc70f76c.js" type="module"></script>
+  </body>
+</html>
